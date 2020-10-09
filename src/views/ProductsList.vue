@@ -203,7 +203,8 @@
 <script>
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle"
-import { server } from "../main";
+import { server,store } from "../main";
+import $ from 'jquery'
 import axios from "axios";
 export default {
   data() {
@@ -211,15 +212,18 @@ export default {
       products: [],
       showProductDetail: [],
       shop_id: "",
-      t:''
+      t:null
     };
   },
   methods: {
-    getListProductDetail(id) {
-      this.t = id.product_id
-      axios.post(`${server}/detail-info`, { id: id.product_id }).then((response) => {
+    getListProductDetail(product) {
+      this.t = product.product_id
+      axios.post(`${server}/detail-info`, { id: product.product_id }).then((response) => {
         this.showProductDetail = response.data;
       });
+
+      store.state.productDetail = product;
+      store.state.category_id = this.t;
     },
     //delete sản phẩm
     deleteProducts(id){
@@ -230,7 +234,9 @@ export default {
       })
     },
     addDetailProduct(){
-      console.log(this.t)
+      $("#detailProduct").hide()
+      $('body').removeClass("modal-open")
+      this.$router.push({path:'/detail-add-book'})
     }
   },
   mounted() {

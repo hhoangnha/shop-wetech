@@ -51,7 +51,9 @@ export const store = new Vuex.Store({
   state: {
     danhMucChinh: '',
     danhMucCon: '',
-    shop: []
+    shop: [],
+    productDetail:null,
+    category_id:null
   },
 })
 
@@ -59,7 +61,7 @@ Vue.config.productionTip = false
 
 
 export const EventBus = new Vue()
-export const server = 'http://127.0.0.1:8000/api'
+export const server = 'http://localhost/weTech_back/server.php/api'
 Vue.use(ArgonDashboard)
 new Vue({
   router,

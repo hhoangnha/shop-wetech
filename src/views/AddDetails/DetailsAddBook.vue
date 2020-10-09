@@ -38,7 +38,7 @@
                           class="form-control"
                           placeholder="Tên sản phẩm"
                           readonly
-                          
+                          :value="product.product_name"
                         />
                       </div>
                     </div>
@@ -51,7 +51,7 @@
                           class="form-control"
                           placeholder="Thương hiệu"
                           readonly
-                          value
+                          :value="product.brand"
                         />
                       </div>
                     </div>
@@ -70,7 +70,7 @@
                               class="form-control"
                               placeholder
                               readonly
-                              :value="danhMucChinh"
+                              :value="product.category"
                             />
                           </div>
                         </div>
@@ -84,7 +84,7 @@
                               type="text"
                               class="form-control"
                               placeholder
-                              :value="danhMucCon"
+                              :value="product.cate_name"
                               readonly
                             />
                           </div>
@@ -290,6 +290,7 @@
                       value="Thêm sản phẩm"
                       @click="addProduct"
                     />
+                    
                     <input
                       type="button"
                       class="btn btn-danger"
@@ -309,6 +310,7 @@
 
 <script>
 import Axios from 'axios';
+import $ from 'jquery';
 import { store, EventBus,server } from "./../../main";
 import Ref from "./../AddProducts/Ref.vue";
 
@@ -318,6 +320,7 @@ export default {
       danhMucChinh: "",
       danhMucCon: "",
       imgArr:[],
+      product_id:null,
       product:{
         quantity:null,
         size:null,
@@ -382,7 +385,7 @@ export default {
   methods: {
     
     addProduct(){
-      Axios.post(`${server}/add-product`,{
+      Axios.post(`${server}/add-detail`,{
         quantity:this.product.quantity,
         size:this.product.quantity,
         color:this.product.color,
@@ -410,6 +413,8 @@ export default {
 
         cate_id:this.product.cate_id,
         image:JSON.stringify(this.imgArr),
+
+        product_id:this.product_id
       })
       .then((re)=>{
         console.log(re.data)
@@ -418,6 +423,7 @@ export default {
     
   },
   created() {
+    $(".modal-backdrop").removeClass("modal-backdrop")
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");
@@ -431,12 +437,8 @@ export default {
 
     this.product.shop_id = JSON.parse(getCookie("user_id"));
 
-    this.danhMucChinh = store.state.danhMucChinh;
-
-    EventBus.$on("catecon", (da) => {
-      this.danhMucCon = da.cate_name;
-      this.product.cate_id = da.cate_id
-    });
+    this.product = store.state.productDetail
+    this.product_id = store.state.category_id
 
     EventBus.$on("bus-upload-image",(data)=>{
       this.imgArr.push(data)
