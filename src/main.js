@@ -59,7 +59,7 @@ Vue.config.productionTip = false
 
 
 export const EventBus = new Vue()
-export const server = 'http://localhost:80/weTech_back/server.php/api'
+export const server = 'http://127.0.0.1:8000/api'
 Vue.use(ArgonDashboard)
 new Vue({
   router,

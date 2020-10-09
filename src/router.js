@@ -13,6 +13,8 @@ import ImagesCover from './views/ImagesCover.vue'
 import ImagesAvatar from './views/ImagesAvatar.vue'
 import ViewProductDetail from './views/ViewProductDetail.vue'
 
+import DetailAddBook from './views/AddDetails/DetailsAddBook.vue'
+
 
 export default new Router({
   linkExactActiveClass: 'active',
@@ -78,6 +80,12 @@ export default new Router({
           path: '/view-product-detail',
           name: 'view-product-detail',
           component: ViewProductDetail
+        },
+
+        {
+          path: '/detail-add-book',
+          name: 'detail-add-book',
+          component: DetailAddBook
         },
       ]
     },

@@ -20,9 +20,6 @@
           <table class="table align-items-center table-hover table-responsive table-striped table-bordered" style="background-color:white">
             <thead class="thead-light">
               <tr>
-                <th scope="col" class="sort" data-sort="productId">
-                  Mã sản phẩm
-                </th>
                 <th scope="col" class="sort" data-sort="name">Sản phẩm</th>
                 <th scope="col" class="sort" data-sort="nameShop">Danh mục chính</th>
                 <th scope="col" class="sort" data-sort="nameShop">Danh mục con</th>
@@ -38,7 +35,6 @@
             >
               <tr>
                 <!-- mã sản phẩm -->
-                <td>{{ product.product_id }}</td>
                 <th scope="row">
                   <div class="media align-items-center">
                     <!-- hình ảnh sản phẩm -->
@@ -77,7 +73,7 @@
                         href="javascript:void(0)"
                         data-toggle="modal"
                         data-target="#detailProduct"
-                        @click="getListProductDetail(product.product_id)"
+                        @click="getListProductDetail(product)"
                         >Xem chi tiết</a
                       >
                     </div>
@@ -100,6 +96,9 @@
                   <!-- Modal body -->
                   <div class="modal-body">
                     <div class="table-responsive">
+                      <button class="btn btn-primary btn-sm" @click="addDetailProduct()">NHẬP KHO</button>
+                      <br>
+                      <br>
                       <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                           <tr>
@@ -217,8 +216,8 @@ export default {
   },
   methods: {
     getListProductDetail(id) {
-      this.t = id
-      axios.post(`${server}/detail-info`, { id: id }).then((response) => {
+      this.t = id.product_id
+      axios.post(`${server}/detail-info`, { id: id.product_id }).then((response) => {
         this.showProductDetail = response.data;
       });
     },
@@ -229,6 +228,9 @@ export default {
           this.getListProductDetail(this.t)
         }
       })
+    },
+    addDetailProduct(){
+      console.log(this.t)
     }
   },
   mounted() {
