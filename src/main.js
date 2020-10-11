@@ -20,6 +20,8 @@ import App from './App.vue'
 import router from './router'
 import './registerServiceWorker'
 import ArgonDashboard from './plugins/argon-dashboard'
+import VueAlertify from 'vue-alertify';
+Vue.use(VueAlertify);
 
 
 

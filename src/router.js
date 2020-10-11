@@ -4,7 +4,7 @@ import DashboardLayout from '@/layout/DashboardLayout'
 import AuthLayout from '@/layout/AuthLayout'
 Vue.use(Router)
 
-
+//add product
 import ProductsList from './views/ProductsList.vue'
 import ProductsAdd from './views/ProductsAdd.vue'
 import OrderList from './views/OrderList.vue'
@@ -13,7 +13,10 @@ import ImagesCover from './views/ImagesCover.vue'
 import ImagesAvatar from './views/ImagesAvatar.vue'
 import ViewProductDetail from './views/ViewProductDetail.vue'
 
+//add detail product
 import DetailAddBook from './views/AddDetails/DetailsAddBook.vue'
+import DetailAddToy from './views/AddDetails/DetailsAddToy.vue'
+import DetailAddFashion from './views/AddDetails/DetailsAddFashion.vue'
 
 
 export default new Router({
@@ -86,6 +89,16 @@ export default new Router({
           path: '/detail-add-book',
           name: 'detail-add-book',
           component: DetailAddBook
+        },
+        {
+          path: '/detail-add-toy',
+          name: 'detail-add-toy',
+          component: DetailAddToy
+        },
+        {
+          path: '/detail-add-fashion',
+          name: 'detail-add-fashion',
+          component: DetailAddFashion
         },
       ]
     },

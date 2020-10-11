@@ -23,7 +23,6 @@
                           type="text"
                           class="form-control"
                           placeholder="Tên sản phẩm"
-                          
                           v-model="product.product_name"
                         />
                       </div>
@@ -104,7 +103,7 @@
                             type="text"
                             class="form-control"
                             placeholder="VD:99000"
-                             v-model="product.price"
+                            v-model="product.price"
                           />
                           <div class="input-group-append">
                             <span class="input-group-text">VNĐ</span>
@@ -121,7 +120,7 @@
                             type="text"
                             class="form-control"
                             placeholder="VD:99000"
-                             v-model="product.discount_price"
+                            v-model="product.discount_price"
                           />
                           <div class="input-group-append">
                             <span class="input-group-text">VNĐ</span>
@@ -138,7 +137,7 @@
                             type="text"
                             class="form-control"
                             placeholder="VD: 1; 2;..."
-                             v-model="product.quantity"
+                            v-model="product.quantity"
                           />
                           <div class="input-group-append">
                             <span class="input-group-text">
@@ -159,7 +158,7 @@
                           type="text"
                           class="form-control"
                           placeholder="VD: NXB; Tác giả; Quốc gia;..."
-                           v-model="product.origin"
+                          v-model="product.origin"
                         />
                       </div>
                     </div>
@@ -176,7 +175,7 @@
                           class="form-control"
                           type="text"
                           placeholder="VD: 5 x 6 x 7"
-                           v-model="product.dimension"
+                          v-model="product.dimension"
                         />
                       </div>
                     </div>
@@ -189,11 +188,11 @@
                             type="number"
                             class="form-control"
                             placeholder
-                            v-model="product.weight" 
+                            v-model="product.weight"
                           />
                           <div class="input-group-append">
                             <span class="input-group-text">
-                              <select  class="form-control-label">
+                              <select class="form-control-label">
                                 <option value>Gam (g)</option>
                                 <option value>Kilogam (kg)</option>
                               </select>
@@ -213,7 +212,7 @@
                           class="form-control"
                           type="text"
                           placeholder="VD: Giấy; nhựa;..."
-                           v-model="product.material"
+                          v-model="product.material"
                         />
                       </div>
                     </div>
@@ -228,13 +227,12 @@
                             class="form-control"
                             type="text"
                             placeholder="Nhập sản phẩm kèm theo..."
-                             v-model="product.accessory"
+                            v-model="product.accessory"
                           />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <!-- <button class="btn btn-primary" v-click="copyed">Try it</button> -->
                 </div>
                 <hr class="my-4" />
                 <!-- Description -->
@@ -250,13 +248,13 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Thêm hình ảnh</label>
-                    <div class="row text-center">
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
+                    <div class="row d-flex justify-content-center">
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
                     </div>
                   </div>
                   <div class="form-group">
@@ -267,6 +265,7 @@
                       :editor-url="editorUrl"
                     ></ckeditor>
                   </div>
+
                   <div class="form-group">
                     <input
                       type="button"
@@ -293,8 +292,8 @@
 </template>
 
 <script>
-import Axios from 'axios';
-import { store, EventBus,server } from "./../../main";
+import Axios from "axios";
+import { store, EventBus, server } from "./../../main";
 import Ref from "./Ref";
 
 export default {
@@ -302,34 +301,34 @@ export default {
     return {
       danhMucChinh: "",
       danhMucCon: "",
-      imgArr:[],
-      product:{
-        quantity:null,
-        size:null,
-        color:null,
-        price:null,
-        status:null,
-        discount_price:"0",
-        origin:null,
-        accessory:null,
-        dimension:null,
-        weight:null,
-        system:null,
-        material:null,
-        screen_size:null,
-        wattage:null,
-        resolution:null,
-        memory:null,
+      imgArr: [],
+      product: {
+        quantity: null,
+        size: null,
+        color: null,
+        price: null,
+        status: null,
+        discount_price: "0",
+        origin: null,
+        accessory: null,
+        dimension: null,
+        weight: null,
+        system: null,
+        material: null,
+        screen_size: null,
+        wattage: null,
+        resolution: null,
+        memory: null,
 
-        product_name:null,
-        brand:null,
-        introduction:null,
-        description:null,
-        tag:null,
+        product_name: null,
+        brand: null,
+        introduction: null,
+        description: null,
+        tag: null,
 
-        shop_id:null,
+        shop_id: null,
 
-        cate_id:null,
+        cate_id: null,
       },
 
       editorUrl: "https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js",
@@ -365,42 +364,48 @@ export default {
     Ref,
   },
   methods: {
-    
-    addProduct(){
-      Axios.post(`${server}/add-product`,{
-        quantity:this.product.quantity,
-        size:this.product.quantity,
-        color:this.product.color,
-        price:this.product.price,
-        status:this.product.status,
-        discount_price:"0",
-        origin:this.product.origin,
-        accessory:this.product.accessory,
-        dimension:this.product.dimension,
-        weight:this.product.weight,
-        system:this.product.system,
-        material:this.product.material,
-        screen_size:this.product.screen_size,
-        wattage:this.product.wattage,
-        resolution:this.product.resolution,
-        memory:this.product.memory,
+    addProduct() {
+      Axios.post(`${server}/add-product`, {
+        quantity: this.product.quantity,
+        size: this.product.quantity,
+        color: this.product.color,
+        price: this.product.price,
+        status: this.product.status,
+        discount_price: "0",
+        origin: this.product.origin,
+        accessory: this.product.accessory,
+        dimension: this.product.dimension,
+        weight: this.product.weight,
+        system: this.product.system,
+        material: this.product.material,
+        screen_size: this.product.screen_size,
+        wattage: this.product.wattage,
+        resolution: this.product.resolution,
+        memory: this.product.memory,
 
-        product_name:this.product.product_name,
-        brand:this.product.brand,
-        introduction:this.product.introduction,
-        description:this.product.description,
-        tag:this.product.tag,
+        product_name: this.product.product_name,
+        brand: this.product.brand,
+        introduction: this.product.introduction,
+        description: this.product.description,
+        tag: this.product.tag,
 
-        shop_id:this.product.shop_id,
+        shop_id: this.product.shop_id,
 
-        cate_id:this.product.cate_id,
-        image:JSON.stringify(this.imgArr),
+        cate_id: this.product.cate_id,
+        image: JSON.stringify(this.imgArr),
+      }).then((re) => {
+        console.log(re.data);
+        if(re.data.success){
+          this.$alertify.success('Thêm sản phẩm thành công!')
+        }
+        else{
+          this.$alertify.error('Thêm sản phẩm thất bại!')
+        }
+      }).catch(()=>{
+        this.$alertify.error('Thêm sản phẩm thất bại!')
       })
-      .then((re)=>{
-        console.log(re.data)
-      })
-    }
     
+    },
   },
   created() {
     function getCookie(cname) {
@@ -420,13 +425,12 @@ export default {
 
     EventBus.$on("catecon", (da) => {
       this.danhMucCon = da.cate_name;
-      this.product.cate_id = da.cate_id
+      this.product.cate_id = da.cate_id;
     });
 
-    EventBus.$on("bus-upload-image",(data)=>{
-      this.imgArr.push(data)
-    })
-
+    EventBus.$on("bus-upload-image", (data) => {
+      this.imgArr.push(data);
+    });
   },
 };
 </script>

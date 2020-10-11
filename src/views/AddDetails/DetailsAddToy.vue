@@ -1,8 +1,22 @@
 <template>
   <div>
+    <base-header
+      class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+      style="
+        min-height: 100px;
+        background-image: url(img/theme/profile-cover.jpg);
+        background-size: cover;
+        background-position: center top;
+      "
+    >
+      <!-- Mask -->
+      <span class="mask bg-gradient-success opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center"></div>
+    </base-header>
     <!-- Main content -->
     <!-- Page content -->
-    <div class="container-fluid mt--6">
+    <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
           <div class="card">
@@ -18,16 +32,13 @@
                     <!-- Tên sản phẩm -->
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label
-                          class="form-control-label"
-                        >
-                          Tên sản phẩm
-                        </label>
+                        <label class="form-control-label"> Tên sản phẩm </label>
                         <input
                           type="text"
                           class="form-control"
                           placeholder="Tên sản phẩm"
-                          v-model="product.product_name"
+                          :value="product.product_name"
+                          readonly
                         />
                       </div>
                     </div>
@@ -39,7 +50,8 @@
                           type="text"
                           class="form-control"
                           placeholder="Thương hiệu"
-                          v-model="product.brand"
+                          :value="product.brand"
+                          readonly
                         />
                       </div>
                     </div>
@@ -57,7 +69,7 @@
                               type="text"
                               class="form-control"
                               readonly
-                              :value="danhMucChinh"
+                              :value="product.category"
                             />
                           </div>
                         </div>
@@ -70,7 +82,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              :value="danhMucCon"
+                              :value="product.cate_name"
                               readonly
                             />
                           </div>
@@ -99,9 +111,7 @@
                     <!-- Đơn giá -->
                     <div class="col-lg-3">
                       <div class="form-group">
-                        <label class="form-control-label"
-                          >Đơn giá</label
-                        >
+                        <label class="form-control-label">Đơn giá</label>
                         <div class="input-group mb-3">
                           <input
                             type="text"
@@ -118,9 +128,7 @@
                     <!-- Giá giảm -->
                     <div class="col-lg-3">
                       <div class="form-group">
-                        <label class="form-control-label"
-                          >Giá giảm</label
-                        >
+                        <label class="form-control-label">Giá giảm</label>
                         <div class="input-group mb-3">
                           <input
                             type="text"
@@ -137,9 +145,7 @@
                     <!-- Số lượng kho -->
                     <div class="col-lg-3">
                       <div class="form-group">
-                        <label class="form-control-label"
-                          >Số lượng nhập</label
-                        >
+                        <label class="form-control-label">Số lượng nhập</label>
                         <div class="input-group mb-3">
                           <input
                             type="text"
@@ -284,31 +290,27 @@
                 <h6 class="heading-small text-muted mb-4">Mô tả</h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
-                    <label class="form-control-label">Mô tả ngắn</label>
-                    <ckeditor
-                      v-model="product.introduction"
-                      :config="editorConfig"
-                      :editor-url="editorUrl"
-                    ></ckeditor>
-                  </div>
-                  <div class="form-group">
                     <label class="form-control-label">Thêm hình ảnh</label>
-                    <div class="row d-flex justify-content-center">
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
+                    <div class="row text-center">
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Mô tả chi tiết</label>
-                    <ckeditor
-                      v-model="product.description"
-                      :config="editorConfig"
-                      :editor-url="editorUrl"
-                    ></ckeditor>
                   </div>
                   <div class="form-group">
                     <input
@@ -317,11 +319,7 @@
                       value="Thêm sản phẩm"
                       @click="addProduct"
                     />
-                    <input
-                      type="button"
-                      class="btn btn-danger"
-                      value="Hủy"
-                    />
+                    <input type="button" class="btn btn-danger" value="Hủy" />
                   </div>
                 </div>
               </form>
@@ -334,43 +332,45 @@
 </template>
 
 <script>
-import Axios from "axios";
-import { store, EventBus, server } from "./../../main";
-import Ref from "./Ref";
+import Axios from 'axios';
+import $ from 'jquery';
+import { store, EventBus,server } from "./../../main";
+import Ref from "./../AddProducts/Ref.vue";
 
 export default {
   data() {
     return {
       danhMucChinh: "",
       danhMucCon: "",
-      imgArr: [],
-      product: {
-        quantity: null,
-        size: null,
-        color: null,
-        price: null,
-        status: null,
-        discount_price: "0",
-        origin: null,
-        accessory: null,
-        dimension: null,
-        weight: null,
-        system: null,
-        material: null,
-        screen_size: null,
-        wattage: null,
-        resolution: null,
-        memory: null,
+      imgArr:[],
+      product_id:null,
+      product:{
+        quantity:null,
+        size:null,
+        color:null,
+        price:null,
+        status:null,
+        discount_price:"0",
+        origin:null,
+        accessory:null,
+        dimension:null,
+        weight:null,
+        system:null,
+        material:null,
+        screen_size:null,
+        wattage:null,
+        resolution:null,
+        memory:null,
 
-        product_name: null,
-        brand: null,
-        introduction: null,
-        description: null,
-        tag: null,
+        product_name:null,
+        brand:null,
+        introduction:null,
+        description:null,
+        tag:null,
 
-        shop_id: null,
+        shop_id:null,
 
-        cate_id: null,
+        cate_id:null,
       },
 
       editorUrl: "https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js",
@@ -406,37 +406,41 @@ export default {
     Ref,
   },
   methods: {
-    addProduct() {
-      Axios.post(`${server}/add-product`, {
-        quantity: this.product.quantity,
-        size: this.product.quantity,
-        color: this.product.color,
-        price: this.product.price,
-        status: this.product.status,
-        discount_price: "0",
-        origin: this.product.origin,
-        accessory: this.product.accessory,
-        dimension: this.product.dimension,
-        weight: this.product.weight,
-        system: this.product.system,
-        material: this.product.material,
-        screen_size: this.product.screen_size,
-        wattage: this.product.wattage,
-        resolution: this.product.resolution,
-        memory: this.product.memory,
+    
+    addProduct(){
+      Axios.post(`${server}/add-detail`,{
+        quantity:this.product.quantity,
+        size:this.product.quantity,
+        color:this.product.color,
+        price:this.product.price,
+        status:this.product.status,
+        discount_price:"0",
+        origin:this.product.origin,
+        accessory:this.product.accessory,
+        dimension:this.product.dimension,
+        weight:this.product.weight,
+        system:this.product.system,
+        material:this.product.material,
+        screen_size:this.product.screen_size,
+        wattage:this.product.wattage,
+        resolution:this.product.resolution,
+        memory:this.product.memory,
 
-        product_name: this.product.product_name,
-        brand: this.product.brand,
-        introduction: this.product.introduction,
-        description: this.product.description,
-        tag: this.product.tag,
+        product_name:this.product.product_name,
+        brand:this.product.brand,
+        introduction:this.product.introduction,
+        description:this.product.description,
+        tag:this.product.tag,
 
-        shop_id: this.product.shop_id,
+        shop_id:this.product.shop_id,
 
-        cate_id: this.product.cate_id,
-        image: JSON.stringify(this.imgArr),
-      }).then((re) => {
-        console.log(re.data);
+        cate_id:this.product.cate_id,
+        image:JSON.stringify(this.imgArr),
+
+        product_id:this.product_id
+      })
+      .then((re)=>{
+        console.log(re.data)
         if(re.data.success){
           this.$alertify.success('Thêm sản phẩm thành công!')
         }
@@ -446,9 +450,11 @@ export default {
       }).catch(()=>{
         this.$alertify.error('Thêm sản phẩm thất bại!')
       })
-    },
+    }
+    
   },
   created() {
+    $(".modal-backdrop").removeClass("modal-backdrop")
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");
@@ -462,16 +468,13 @@ export default {
 
     this.product.shop_id = JSON.parse(getCookie("user_id"));
 
-    this.danhMucChinh = store.state.danhMucChinh;
+    this.product = store.state.productDetail
+    this.product_id = store.state.category_id
 
-    EventBus.$on("catecon", (da) => {
-      this.danhMucCon = da.cate_name;
-      this.product.cate_id = da.cate_id;
-    });
+    EventBus.$on("bus-upload-image",(data)=>{
+      this.imgArr.push(data)
+    })
 
-    EventBus.$on("bus-upload-image", (data) => {
-      this.imgArr.push(data);
-    });
   },
 };
 </script>

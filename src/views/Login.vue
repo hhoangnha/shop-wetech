@@ -68,8 +68,8 @@ export default {
           response.data.forEach(abc => {
 
             var user = JSON.stringify(abc) 
-            document.cookie = `user=${user}; max-age=99999`
-            document.cookie = `user_id=${abc.user_id}; max-age=99999`
+            document.cookie = `user=${user}; max-age=86400`
+            document.cookie = `user_id=${abc.user_id}; max-age=86400`
             window.location.href = "http://localhost:8080/"
             console.log(abc)
           });

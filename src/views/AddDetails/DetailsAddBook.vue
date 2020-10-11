@@ -256,14 +256,6 @@
                 <h6 class="heading-small text-muted mb-4">Mô tả</h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
-                    <label class="form-control-label">Mô tả ngắn</label>
-                    <ckeditor
-                      v-model="product.introduction"
-                      :config="editorConfig"
-                      :editor-url="editorUrl"
-                    ></ckeditor>
-                  </div>
-                  <div class="form-group">
                     <label class="form-control-label">Thêm hình ảnh</label>
                     <div class="row text-center">
                       <div class="col-2"><Ref /></div>
@@ -273,14 +265,6 @@
                       <div class="col-2"><Ref /></div>
                       <div class="col-2"><Ref /></div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Mô tả chi tiết</label>
-                    <ckeditor
-                      v-model="product.description"
-                      :config="editorConfig"
-                      :editor-url="editorUrl"
-                    ></ckeditor>
                   </div>
                   <div class="form-group">
                     <input
@@ -418,6 +402,14 @@ export default {
       })
       .then((re)=>{
         console.log(re.data)
+        if(re.data.success){
+          this.$alertify.success('Thêm sản phẩm thành công!')
+        }
+        else{
+          this.$alertify.error('Thêm sản phẩm thất bại!')
+        }
+      }).catch(()=>{
+        this.$alertify.error('Thêm sản phẩm thất bại!')
       })
     }
     

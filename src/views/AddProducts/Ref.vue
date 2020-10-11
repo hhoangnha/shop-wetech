@@ -5,7 +5,7 @@
         :src="addImage"
         class=""
         v-on:click="handleClickInputImg"
-        width="80px"
+        width="100%"
       />
       <input
         ref="fileInputImg"
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/js/bootstrap.bundle"
 import axios from "axios";
 import { server,EventBus } from "./../../main";
 export default {
@@ -54,6 +56,7 @@ export default {
 
 <style>
 .ref {
-  padding: 22px;
+  max-width: 100px;
+  margin: 20px;
 }
 </style>

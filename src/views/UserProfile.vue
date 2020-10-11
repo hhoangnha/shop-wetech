@@ -35,14 +35,6 @@
               <div
                 class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4"
               >
-                <div class="d-flex justify-content-between">
-                  <base-button size="sm" type="info" class="mr-4"
-                    >Connect</base-button
-                  >
-                  <base-button size="sm" type="default" class="float-right"
-                    >Message</base-button
-                  >
-                </div>
               </div>
               <div class="card-body pt-0 pt-md-4">
                 <div class="row">
@@ -51,15 +43,15 @@
                       class="card-profile-stats d-flex justify-content-center mt-md-5"
                     >
                       <div>
-                        <span class="heading"></span>
+                        <span class="heading">13</span>
                         <span class="description">Sản phẩm</span>
                       </div>
                       <div>
-                        <span class="heading"></span>
+                        <span class="heading">13</span>
                         <span class="description">Đã bán</span>
                       </div>
                       <div>
-                        <span class="heading"></span>
+                        <span class="heading">13</span>
                         <span class="description">Doanh thu trong tháng</span>
                       </div>
                     </div>
@@ -86,10 +78,10 @@
               <div slot="header" class="bg-white border-0">
                 <div class="row align-items-center">
                   <div class="col-8">
-                    <h3 class="mb-0">My account</h3>
+                    <h3 class="mb-0">Hồ sơ</h3>
                   </div>
                   <div class="col-4 text-right">
-                    <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-primary" @click="updateProfile(user.user_id)">Lưu hồ sơ</a>
                   </div>
                 </div>
               </div>
@@ -120,7 +112,6 @@
                           class="form-control"
                           placeholder="jesse@example.com"
                           v-bind:value="user.email"
-                          
                         />
                       </div>
                     </div>
@@ -215,6 +206,8 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+import {server} from './../main'
 export default {
   name: "user-profile",
   data() {
@@ -232,6 +225,11 @@ export default {
         about: "",
       },
     };
+  },
+  methods:{
+    updateProfile(user_id){
+      axios.post(`${server}/update-account`,{user_id})
+    }
   },
   created(){
     function getCookie(cname) {
