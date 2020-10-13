@@ -70,8 +70,8 @@ const userId = getCookie('user_id');
 // export const socket = io(`http://localhost:3000`,{query:`userId=${userId}`});
 
 export const EventBus = new Vue()
-export const socket = io(`http://192.168.1.36:3000`,{query:`userId=${userId}`})
-export const server = 'http://192.168.1.36/weTech_back/server.php/api'
+export const socket = io(`http://192.168.1.125:3000`,{query:`userId=${userId}`})
+export const server = 'http://192.168.1.125/weTech_back/server.php/api'
 Vue.use(ArgonDashboard)
 new Vue({
   router,

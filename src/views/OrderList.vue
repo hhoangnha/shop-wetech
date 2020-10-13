@@ -800,7 +800,7 @@
 
 <script>
 import axios from "axios";
-import { server, } from "../main";
+import {  server, } from "../main";
 
 export default {
   data() {
@@ -812,11 +812,15 @@ export default {
       shipping: [],
       shipped: [],
       cancelled: [],
-      returned: []
+      returned: [],
+      newOrder:null
     };
   },
   created(){
-    
+
+    // EventBus.$on("new-order",(data)=>{
+    //   this.$alertify.success(`Bạn có đơn hàng mới từ ${data.username}`)
+    // })
     
     function getCookie(cname) {
       var name = cname + "=";
