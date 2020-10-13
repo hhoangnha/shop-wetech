@@ -22,8 +22,8 @@ import './registerServiceWorker'
 import ArgonDashboard from './plugins/argon-dashboard'
 import VueAlertify from 'vue-alertify'
 import Vuelidate from 'vuelidate'
-// import io from 'socket.io-client'
-// import getCookie from './getCookie.js'
+import io from 'socket.io-client'
+import getCookie from './getCookie.js'
 Vue.use(VueAlertify);
 Vue.use(Vuelidate);
 
@@ -66,11 +66,12 @@ export const store = new Vuex.Store({
 
 Vue.config.productionTip = false
 
-// const userId = getCookie('user_id');
+const userId = getCookie('user_id');
 // export const socket = io(`http://localhost:3000`,{query:`userId=${userId}`});
 
 export const EventBus = new Vue()
-export const server = 'http://127.0.0.1:8000/api'
+export const socket = io(`http://192.168.1.36:3000`,{query:`userId=${userId}`})
+export const server = 'http://192.168.1.36/weTech_back/server.php/api'
 Vue.use(ArgonDashboard)
 new Vue({
   router,

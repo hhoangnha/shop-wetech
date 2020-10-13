@@ -800,7 +800,7 @@
 
 <script>
 import axios from "axios";
-import { server } from "../main";
+import { server, } from "../main";
 
 export default {
   data() {
@@ -815,7 +815,9 @@ export default {
       returned: []
     };
   },
-  mounted() {
+  created(){
+    
+    
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");
@@ -827,79 +829,106 @@ export default {
       return "";
     }
     this.shop_id = JSON.parse(getCookie("user_id"));
-    //Tất cả
-    axios
-      .post(`${server}/get-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var all = response.data;
-        for (var item in all) {
-          this.all.push(all[item]);
-        }
-      });
-    //Chưa duyệt
-    axios
-      .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var unactive = response.data;
-        for (var item in unactive) {
-          this.unactive.push(unactive[item]);
-        }
-      });
-      //Đã duyệt
-    axios
-      .post(`${server}/active-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var actived = response.data;
-        for (var item in actived) {
-          this.actived.push(actived[item]);
-        }
-      });
-      //Đã đóng gói
-    axios
-      .post(`${server}/update-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var packaged = response.data;
-        for (var item in packaged) {
-          this.packaged.push(packaged[item]);
-        }
-      });
-      //Đang giao
-    axios
-      .post(`${server}/confirm-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var shipping = response.data;
-        for (var item in shipping) {
-          this.shipping.push(shipping[item]);
-        }
-      });
-      //Đã giao
-    axios
-      .post(`${server}/finish-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var shipped = response.data;
-        for (var item in shipped) {
-          this.shipped.push(shipped[item]);
-        }
-      });
-      //Đã hủy
-    axios
-      .post(`${server}/cancel-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var cancelled = response.data;
-        for (var item in cancelled) {
-          this.cancelled.push(cancelled[item]);
-        }
-      });
-      //Trả hàng
-    axios
-      .post(`${server}/return-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var returned = response.data;
-        for (var item in returned) {
-          this.returned.push(returned[item]);
-        }
-      });
+    
+    this.allOrder()
+    this.unActive()
+    this.active()
+    this.donggoi()
+    this.shippingfc()
+    this.shippedfc()
+    this.cancelledfc()
+    this.returnedfc()
   },
+  methods:{
+    allOrder(){
+        //Tất cả
+      axios
+        .post(`${server}/get-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var all = response.data;
+          for (var item in all) {
+            this.all.push(all[item]);
+          }
+        });
+    },
+    unActive(){
+      //Chưa duyệt
+        axios
+          .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
+          .then((response) => {
+            var unactive = response.data;
+            for (var item in unactive) {
+              this.unactive.push(unactive[item]);
+            }
+          });
+    },
+    active(){
+      //Đã duyệt
+      axios
+        .post(`${server}/active-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var actived = response.data;
+          for (var item in actived) {
+            this.actived.push(actived[item]);
+          }
+        });
+    },
+    donggoi(){
+      //Đã đóng gói
+      axios
+        .post(`${server}/update-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var packaged = response.data;
+          for (var item in packaged) {
+            this.packaged.push(packaged[item]);
+          }
+        });
+    },
+    shippingfc(){
+      //Đang giao
+      axios
+        .post(`${server}/confirm-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var shipping = response.data;
+          for (var item in shipping) {
+            this.shipping.push(shipping[item]);
+          }
+        });
+    },
+    shippedfc(){
+      //Đã giao
+      axios
+        .post(`${server}/finish-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var shipped = response.data;
+          for (var item in shipped) {
+            this.shipped.push(shipped[item]);
+          }
+        });
+    },
+    cancelledfc(){
+      //Đã hủy
+      axios
+        .post(`${server}/cancel-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var cancelled = response.data;
+          for (var item in cancelled) {
+            this.cancelled.push(cancelled[item]);
+          }
+        });
+    },
+    returnedfc(){
+      //Trả hàng
+      axios
+        .post(`${server}/return-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var returned = response.data;
+          for (var item in returned) {
+            this.returned.push(returned[item]);
+          }
+        });
+      }
+  }
 };
 </script>
 <style>

@@ -19,7 +19,7 @@
       </div>
     </form>
     <ul class="navbar-nav align-items-center d-none d-md-flex">
-      <base-dropdown class="nav-item" position="right">
+      <base-dropdown class="nav-item" position="right" style="position: relative;">
         <a
           slot="title"
           class="nav-link nav-link-icon"
@@ -29,12 +29,16 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <i class="ni ni-bell-55"></i>
+        <span style="position: absolute;top:-10px;right:10px;padding:5px;z-index: 99" class="text-danger">
+          <img width="10" height="10" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Location_dot_red.svg/1024px-Location_dot_red.svg.png" />
+        </span>
+          <i  class="ni ni-bell-55"></i>
         </a>
 
         <a class="dropdown-item" href="javascript:void(0)">
           <div
-            class="row container"
+            class="row container "
+            style=";padding-right:30px"
             v-for="(notification, index) in notifications"
             v-bind:key="index"
           >
