@@ -45,7 +45,7 @@
             <span class="avatar avatar-sm rounded-circle">
               <img alt="Image placeholder" v-bind:src="notification.avatar" />
             </span>
-            <div class="col"><strong>{{notification.username}}</strong> {{notification.titleNotification}} {{notification.contentNotification}}</div>
+            <div class="col"><strong>{{notification.username}}</strong> {{notification.msg}} </div>
           </div>
         </a>
       </base-dropdown>
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import {store} from './../main'
 export default {
   data() {
     return {
@@ -88,18 +89,11 @@ export default {
       showMenu: false,
       searchQuery: "",
       user: {},
-      notifications: [
-        {
-          avatar:
-            "https://scontent.fdad2-1.fna.fbcdn.net/v/t1.0-9/p960x960/117127887_612805836295710_6116670817612199975_o.jpg?_nc_cat=107&_nc_sid=85a577&_nc_ohc=g-2MqTLkwWMAX9koFmI&_nc_ht=scontent.fdad2-1.fna&tp=6&oh=991e1d72f30dad054a46e12456ee19d5&oe=5FAC55EB",
-          username: "Nguyễn Hữu Tiến",
-          titleNotification: "Đã đặt",
-          contentNotification: "đơn hàng ABCSBSH",
-        },
-      ],
+      notifications: [],
     };
   },
   created() {
+    this.notifications = store.state.notication
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");

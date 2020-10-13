@@ -99,7 +99,7 @@
                         v-for="(all, index) in all"
                         v-bind:key="index"
                       >
-                        <tr>
+                        <tr v-bind:data-order="all.name" class="data-order">
                           <th scope="row">
                             <div class="media align-items-center">
                               <div class="media-body">
@@ -800,8 +800,7 @@
 
 <script>
 import axios from "axios";
-import {  server, } from "../main";
-
+import {  server, store} from "../main";
 export default {
   data() {
     return {
@@ -813,11 +812,12 @@ export default {
       shipped: [],
       cancelled: [],
       returned: [],
-      newOrder:null
+      newOrder:null,
     };
   },
   created(){
-
+    this.selectOrder = store.state.selectOrder
+    
     // EventBus.$on("new-order",(data)=>{
     //   this.$alertify.success(`Bạn có đơn hàng mới từ ${data.username}`)
     // })

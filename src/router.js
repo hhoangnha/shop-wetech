@@ -21,6 +21,7 @@ import DetailAddFashion from './views/AddDetails/DetailsAddFashion.vue'
 
 export default new Router({
   linkExactActiveClass: 'active',
+  mode:"history",
   routes: [
     {
       path: '/',

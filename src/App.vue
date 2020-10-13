@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import {socket,} from './main'
+import {socket,store} from './main'
 import Notiflix from "notiflix";
 export default {
   data(){
@@ -20,10 +20,14 @@ export default {
   methods:{
     notifSocketOrder(){
       socket.on("return-request-order",(data)=>{
+        //luu vao chuong thong bao
+        store.state.notication.push(data)
+        store.state.selectOrder = data
+        //gui thong bao realtime
         Notiflix.Notify.Success(
           `Đơn hàng mới từ ${data.username}`,
           function(){
-            window.location.href=`http://localhost:8080/#/order-list`
+            window.location.href=`/order-list`
           },
         )
       })

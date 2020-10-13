@@ -60,7 +60,11 @@ export const store = new Vuex.Store({
     danhMucCon: '',
     shop: [],
     productDetail:null,
-    category_id:null
+    category_id:null,
+    notication:[],
+    selectOrder:{
+      username:"Nguyễn Hữu Tiến"
+    }
   },
 })
 
