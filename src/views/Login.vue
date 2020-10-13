@@ -5,7 +5,7 @@
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
                           <div>
-                            <img src="https://upload.wikimedia.org/wikipedia/vi/archive/d/dc/20200125140746%21Vinfast-logo.png" alt="" width="50px">
+                            <img src="https://res.cloudinary.com/dhkfqcpq8/image/upload/v1602508399/logo-final2_gtcc7k.png" alt="" width="50px">
                             </div>
                             <small>Đăng nhập lại tài khoản của bạn</small>
                         </div>
@@ -20,14 +20,14 @@
                                         placeholder="Password"
                                         type="password"
                                         addon-left-icon="ni ni-lock-circle-open"
-                                        v-model="user.password">
+                                        v-model="user.password" @keyup.enter="Login">
                             </base-input>
 
                             <base-checkbox class="custom-control-alternative">
                                 <span class="text-muted">Ghi nhớ đăng nhập</span>
                             </base-checkbox>
                             <div class="text-center">
-                                <base-button type="primary" class="my-4" @click="Login">Đăng nhập</base-button>
+                                <base-button type="primary" class="my-4" @click="Login()">Đăng nhập</base-button>
                             </div>
                         </form>
                     </div>

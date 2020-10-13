@@ -19,6 +19,32 @@
       </div>
     </form>
     <ul class="navbar-nav align-items-center d-none d-md-flex">
+      <base-dropdown class="nav-item" position="right">
+        <a
+          slot="title"
+          class="nav-link nav-link-icon"
+          href="#"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="ni ni-bell-55"></i>
+        </a>
+
+        <a class="dropdown-item" href="javascript:void(0)">
+          <div
+            class="row container"
+            v-for="(notification, index) in notifications"
+            v-bind:key="index"
+          >
+            <span class="avatar avatar-sm rounded-circle">
+              <img alt="Image placeholder" v-bind:src="notification.avatar" />
+            </span>
+            <div class="col"><strong>{{notification.username}}</strong> {{notification.titleNotification}} {{notification.contentNotification}}</div>
+          </div>
+        </a>
+      </base-dropdown>
       <li class="nav-item dropdown">
         <base-dropdown class="nav-link pr-0">
           <div class="media align-items-center" slot="title">
@@ -58,6 +84,15 @@ export default {
       showMenu: false,
       searchQuery: "",
       user: {},
+      notifications: [
+        {
+          avatar:
+            "https://scontent.fdad2-1.fna.fbcdn.net/v/t1.0-9/p960x960/117127887_612805836295710_6116670817612199975_o.jpg?_nc_cat=107&_nc_sid=85a577&_nc_ohc=g-2MqTLkwWMAX9koFmI&_nc_ht=scontent.fdad2-1.fna&tp=6&oh=991e1d72f30dad054a46e12456ee19d5&oe=5FAC55EB",
+          username: "Nguyễn Hữu Tiến",
+          titleNotification: "Đã đặt",
+          contentNotification: "đơn hàng ABCSBSH",
+        },
+      ],
     };
   },
   created() {
@@ -85,10 +120,10 @@ export default {
       this.showMenu = !this.showMenu;
     },
     Logout() {
-    document.cookie = `user=null; max-age=1`;
-    document.cookie = `user_id=null; max-age=1`;
-    window.location = "http://localhost:8080/#/login";
-  },
+      document.cookie = `user=null; max-age=1`;
+      document.cookie = `user_id=null; max-age=1`;
+      window.location = "http://localhost:8080/#/login";
+    },
   },
 };
 </script>
