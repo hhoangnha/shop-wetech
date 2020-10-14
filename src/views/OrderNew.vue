@@ -37,7 +37,7 @@
                         Tổng tiền
                       </th>
                       <th scope="col" class="sort" data-sort="status">
-                        Trạng thái
+                        Địa chỉ
                       </th>
                       <th scope="col">Thao tác</th>
                     </tr>
@@ -48,23 +48,17 @@
                     v-bind:key="index + 1"
                   >
                     <tr>
-                      <th scope="row">
-                        <div class="media align-items-center">
-                          <div class="media-body">
-                            <span class="name mb-0 text-sm">{{
-                              unactive.id
-                            }}</span>
-                          </div>
-                        </div>
-                      </th>
-                      <td class="budget">{{ unactive.name }}</td>
                       <td>
-                        <span class="status">{{ unactive.total }}</span>
+                        <strong>{{ unactive.id }}</strong>
+                      </td>
+                      <td>{{ unactive.name }}</td>
+                      <td>
+                        {{ unactive.total }}
                       </td>
                       <td>
                         <div class="d-flex align-items-center">
                           <span class="completion mr-2">{{
-                            unactive.status
+                            unactive.address
                           }}</span>
                         </div>
                       </td>
@@ -85,19 +79,258 @@
                           >
                             <a
                               class="dropdown-item"
-                              href="javascript:voide(0)"
+                              href="javascript:void(0)"
                               data-toggle="modal"
                               data-target="#detailBill"
                               >Chi tiết đơn hàng</a
                             >
-                            <a class="dropdown-item" href="javascript:voide(0)"
-                              >Thao tác kế tiếp</a
-                            >
+                            <a
+                              class="dropdown-item"
+                              href="javascript:void(0)"
+                              @click="checkOrder(unactive.id)"
+                              >Duyệt đơn hàng
+                            </a>
                           </div>
                         </div>
                       </td>
                     </tr>
                   </tbody>
+                  <!-- The Modal -->
+                  <div class="modal fade" id="detailBill">
+                    <div class="modal-dialog modal-xl">
+                      <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Chi tiết sản phẩm</h4>
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                          >
+                            &times;
+                          </button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col">
+                                <div class="card">
+                                  <!-- Card header -->
+                                  <div class="card-header border-0">
+                                    <div class="media align-items-center">
+                                      <!-- avatar người dùng -->
+                                      <a
+                                        href="javascript:void(0)"
+                                        class="avatar rounded-circle mr-3"
+                                      >
+                                        <img
+                                          alt="Image placeholder"
+                                          src=""
+                                        />
+                                      </a>
+                                      <div class="media-body">
+                                        <span class="name mb-0 text-sm"
+                                          >User người dùng</span
+                                        >
+                                        <a href>
+                                          <span
+                                            class="badge badge-pill badge-info"
+                                            >Chat</span
+                                          >
+                                        </a>
+                                      </div>
+                                      <!-- địa chỉ người dùng -->
+                                      <div class="float-right">
+                                        <i class="ni ni-delivery-fast"></i>
+                                        <span class="name mb-0 text-sm">
+                                          288, Nguyễn Văn Linh, phường An Khánh,
+                                          quận Ninh Kiều, TP. Cần Thơ
+                                        </span>
+                                        &emsp; | &emsp;
+                                        <span class="name mb-0 text-sm"
+                                          >Trạng thái</span
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- table -->
+                                  <div class="table-responsive">
+                                    <table
+                                      class="table align-items-center table-flush"
+                                    >
+                                      <tr>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="code"
+                                        >
+                                          Sản phẩm
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="name"
+                                        >
+                                          Đơn giá
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="status"
+                                        >
+                                          Số lượng
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="completion"
+                                        >
+                                          Màu sắc
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="completion"
+                                        >
+                                          Kích cở
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="completion"
+                                        >
+                                          Thành tiền
+                                        </th>
+                                        <th scope="col">Thao tác</th>
+                                      </tr>
+                                      <tbody class="list">
+                                        <tr>
+                                          <th scope="row">
+                                            <div
+                                              class="media align-items-center"
+                                            >
+                                              <!-- hình ảnh sản phẩm -->
+                                              <a
+                                                href="#"
+                                                class="avatar rounded-circle mr-3"
+                                              >
+                                                <img
+                                                  alt="Image placeholder"
+                                                  src=""
+                                                />
+                                              </a>
+                                              <!-- tên sản phẩm -->
+                                              <div class="media-body">
+                                                <span class="name mb-0 text-sm"
+                                                  >Argon Design System</span
+                                                >
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <!-- giá sản phẩm -->
+                                          <td>$2500 USD</td>
+                                          <td>x2</td>
+                                          <td>màu</td>
+                                          <td>size</td>
+                                          <td>Thành tiền</td>
+                                          <td class="text-right">
+                                            <div class="dropdown">
+                                              <a
+                                                class="btn btn-sm btn-icon-only text-light"
+                                                href="#"
+                                                role="button"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                              >
+                                                <i
+                                                  class="fas fa-ellipsis-v"
+                                                ></i>
+                                              </a>
+                                              <div
+                                                class="dropdown-menu dropdown-menu-right drodown-menu-arrow"
+                                              >
+                                                <!-- Button to Open the Modal -->
+                                                <a
+                                                  class="dropdown-item"
+                                                  href="javascript:void(0)"
+                                                  >Cập nhật</a
+                                                >
+                                                <a
+                                                  class="dropdown-item"
+                                                  href="javascript:void(0)"
+                                                  >Xóa</a
+                                                >
+                                              </div>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                      <tfoot>
+                                        <tr>
+                                          <th
+                                            scope="col"
+                                            class="sort"
+                                            data-sort=""
+                                          ></th>
+                                          <th
+                                            scope="col"
+                                            class="sort"
+                                            data-sort=""
+                                          ></th>
+                                          <th
+                                            scope="col"
+                                            class="sort"
+                                            data-sort=""
+                                          ></th>
+                                          <th
+                                            scope="col"
+                                            class="sort"
+                                            data-sort=""
+                                          ></th>
+                                          <th
+                                            scope="col"
+                                            class="sort"
+                                            data-sort=""
+                                          >
+                                            Tổng tiền:
+                                          </th>
+                                          <th
+                                            scope="col"
+                                            class="sort"
+                                            data-sort=""
+                                          >
+                                            xxx.xxx
+                                          </th>
+                                          <th
+                                            scope="col"
+                                            class="sort"
+                                            data-sort=""
+                                          ></th>
+                                        </tr>
+                                      </tfoot>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                          >
+                            Đóng
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </table>
               </div>
             </div>
@@ -141,6 +374,7 @@
 <script>
 import axios from "axios";
 import { server } from "../main";
+import Notiflix from "notiflix";
 
 export default {
   data() {
@@ -161,14 +395,37 @@ export default {
     }
     this.shop_id = JSON.parse(getCookie("user_id"));
     //Chưa duyệt
-    axios
-      .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
-      .then((response) => {
-        var unactive = response.data;
-        for (var item in unactive) {
-          this.unactive.push(unactive[item]);
+    this.getUnactive();
+    //
+    Notiflix.Notify.Init({
+      fontSize: "15px",
+      timeout: 4000,
+      messageMaxLength: 200,
+      position: "right-bottom",
+    });
+  },
+  methods: {
+    getUnactive() {
+      axios
+        .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var unactive = response.data;
+          for (var item in unactive) {
+            this.unactive.push(unactive[item]);
+          }
+        });
+    },
+    checkOrder(id) {
+      axios.post(`${server}/shop-check`, { id: id }).then((response) => {
+        if (response.data.success) {
+          Notiflix.Notify.Success(
+            `Đã duyệt`,
+            (window.location.href = "http://localhost:8080/new-order")
+          );
         }
+        console.log(response.data);
       });
+    },
   },
 };
 </script>

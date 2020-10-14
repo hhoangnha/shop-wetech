@@ -287,6 +287,7 @@ export default {
           }
         });
     },
+    // thêm biến thể
     addDetailProduct() {
       $("#detailProduct").hide();
       $("body").removeClass("modal-open");

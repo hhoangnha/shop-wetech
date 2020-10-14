@@ -24,6 +24,7 @@
                           class="form-control"
                           placeholder="Tên sản phẩm"
                           v-model="product.product_name"
+                          
                         />
                       </div>
                     </div>
@@ -36,6 +37,7 @@
                           class="form-control"
                           placeholder="Thương hiệu"
                           v-model="product.brand"
+                          
                         />
                       </div>
                     </div>
@@ -46,7 +48,7 @@
                         <!-- danh mục chính -->
                         <div class="col-lg-6">
                           <div class="form-group">
-                            <label class="form-control-label" for
+                            <label class="form-control-label"
                               >Danh mục chính</label
                             >
                             <input
@@ -55,21 +57,23 @@
                               placeholder
                               readonly
                               :value="danhMucChinh"
+                              
                             />
                           </div>
                         </div>
                         <!-- danh mục con -->
                         <div class="col-lg-6">
                           <div class="form-group">
-                            <label class="form-control-label" for
+                            <label class="form-control-label"
                               >Danh mục con</label
                             >
                             <input
                               type="text"
                               class="form-control"
                               placeholder
-                              readonly
                               :value="danhMucCon"
+                              readonly
+                              
                             />
                           </div>
                         </div>
@@ -78,9 +82,7 @@
                     <!-- Trạng thái sản phẩm -->
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label"
-                          >Trạng thái sản phẩm</label
-                        >
+                        <label class="form-control-label">Mở bán ngay ?</label>
                         <select class="form-control" v-model="product.status">
                           <option value="1">Mở bán sản phẩm (Còn hàng)</option>
                           <option value="0">Chờ lấy hàng (Hết hàng)</option>
@@ -92,69 +94,33 @@
                 <hr class="my-4" />
                 <!-- Chi tiết sản phẩm -->
                 <h6 class="heading-small text-muted mb-4">Chi tiết sản phẩm</h6>
-                <div class="pl-lg-4">
+                <div class="pl-lg-4" id="detailNext">
                   <div class="row">
-                    <!-- Đơn giá -->
+                    <!-- Kích thước sản phẩm -->
                     <div class="col-lg-3">
                       <div class="form-group">
                         <label class="form-control-label"
-                          >Đơn giá</label
+                          >Size</label
                         >
-                        <div class="input-group mb-3">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="VD:99000"
-                            v-model="product.price"
-                          />
-                          <div class="input-group-append">
-                            <span class="input-group-text">VNĐ</span>
-                          </div>
-                        </div>
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="VD: S; M; L... 1; 2; 3;..."
+                          v-model="product.size"
+                        />
                       </div>
                     </div>
-                    <!-- Giá giảm -->
+                    <!-- Cân nặng  -->
                     <div class="col-lg-3">
                       <div class="form-group">
-                        <label class="form-control-label"
-                          >Giá giảm</label
-                        >
-                        <div class="input-group mb-3">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="VD:99000"
-                            v-model="product.discount_price"
-                          />
-                          <div class="input-group-append">
-                            <span class="input-group-text">VNĐ</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Số lượng kho -->
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label class="form-control-label"
-                          >Số lượng nhập</label
-                        >
-                        <div class="input-group mb-3">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="VD: 1; 2;..."
-                            v-model="product.quantity"
-                          />
-                          <div class="input-group-append">
-                            <span class="input-group-text">
-                              <select class="form-control-label">
-                                <option value>Cái</option>
-                                <option value>Bộ</option>
-                                <option value>Khác</option>
-                              </select>
-                            </span>
-                          </div>
-                        </div>
+                        <label class="form-control-label">Cân nặng (Kg)</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          placeholder="Nếu cần thiết..."
+                          v-model="product.weight"
+                          min="0"
+                        />
                       </div>
                     </div>
                     <!-- Nguồn gốc -->
@@ -169,52 +135,84 @@
                         />
                       </div>
                     </div>
-                  </div>
-                  <!--  -->
-                  <div class="row">
-                    <!-- Kích thước sản phẩm "size" -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                       <div class="form-group">
-                        <label class="form-control-label">Kích thước</label>
-                        <input
+                        <label class="form-control-label">Khuyến mãi ?</label>
+                        <select
                           class="form-control"
-                          type="text"
-                          placeholder="VD: S; M; L;..."
-                          v-model="product.size"
-                        />
-                      </div>
-                    </div>
-                    <!-- Thông số kích thước sản phẩm "demention" -->
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <label class="form-control-label"
-                          >Thông số kích thước</label
+                          v-model="product.status_discount"
                         >
+                          <option value="1" selected>Khuyến mãi</option>
+                          <option value="0" selected>Không khuyến mãi</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <!-- Đơn giá -->
+                    <div class="col-lg">
+                      <div class="form-group">
+                        <label class="form-control-label">Đơn giá</label>
+                        <div class="input-group mb-3">
+                          <input
+                            type="number"
+                            class="form-control"
+                            placeholder="VD:99000"
+                            v-model="product.price"
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text">VNĐ</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Giá giảm -->
+                    <div class="col-lg" v-if="product.status_discount==1">
+                      <div class="form-group">
+                        <label class="form-control-label">Giá giảm</label>
+                        <div class="input-group mb-3">
+                          <input
+                            type="number"
+                            class="form-control"
+                            placeholder="VD:99000"
+                            v-model="product.discount_price"
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text">VNĐ</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Số lượng kho -->
+                    <div class="col-lg">
+                      <div class="form-group">
+                        <label class="form-control-label">Số lượng nhập</label>
                         <input
+                          type="number"
                           class="form-control"
-                          type="text"
-                          placeholder="VD: 5 x 6 x 7"
-                          v-model="product.dimension"
+                          placeholder="VD: 1; 2;..."
+                          min="0"
+                          v-model="product.quantity"
                         />
                       </div>
                     </div>
-                    <!-- Cân nặng  -->
+                  </div>
+
+                  <div class="row">
+                    <!-- Kích thước sản phẩm -->
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label">Màu</label>
+                        <label class="form-control-label">Màu sắc</label>
                         <input
                           class="form-control"
                           type="text"
-                          placeholder="VD: Trắng; Đỏ;..."
+                          placeholder="VD: Đỏ; Xanh; Trắng,..."
                           v-model="product.color"
                         />
                       </div>
                     </div>
-                  </div>
-                  <!--  -->
-                  <div class="row">
-                    <!-- Kích thước sản phẩm -->
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Chất liệu</label>
                         <input
@@ -226,7 +224,7 @@
                       </div>
                     </div>
                     <!-- Cân nặng  -->
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label"
                           >Sản phẩm đi kèm / Quà tặng</label
@@ -258,12 +256,12 @@
                   <div class="form-group">
                     <label class="form-control-label">Thêm hình ảnh</label>
                     <div class="row d-flex justify-content-center">
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
+                      <div class=""><Ref /></div>
                     </div>
                   </div>
                   <div class="form-group">
@@ -274,14 +272,21 @@
                       :editor-url="editorUrl"
                     ></ckeditor>
                   </div>
+
                   <div class="form-group">
                     <input
                       type="button"
                       class="btn btn-primary"
+                      name
                       value="Thêm sản phẩm"
                       @click="addProduct"
                     />
-                    <input type="button" class="btn btn-danger" value="Hủy" />
+                    <input
+                      type="button"
+                      class="btn btn-danger"
+                      name
+                      value="Hủy"
+                    />
                   </div>
                 </div>
               </form>
@@ -305,7 +310,7 @@ export default {
       danhMucCon: "",
       imgArr: [],
       product: {
-        quantity: null,
+        quantity: 0,
         size: null,
         color: null,
         price: null,
@@ -321,12 +326,13 @@ export default {
         wattage: null,
         resolution: null,
         memory: null,
-
         product_name: null,
         brand: null,
         introduction: null,
         description: null,
         tag: null,
+        status_discount: "0",
+        status_product: "0",
 
         shop_id: null,
 
@@ -369,7 +375,7 @@ export default {
     addProduct() {
       Axios.post(`${server}/add-product`, {
         quantity: this.product.quantity,
-        size: this.product.quantity,
+        size: this.product.size,
         color: this.product.color,
         price: this.product.price,
         status: this.product.status,
@@ -384,28 +390,30 @@ export default {
         wattage: this.product.wattage,
         resolution: this.product.resolution,
         memory: this.product.memory,
-
         product_name: this.product.product_name,
         brand: this.product.brand,
         introduction: this.product.introduction,
         description: this.product.description,
         tag: this.product.tag,
+        status_discount: this.product.status_discount,
+        status_product: "0",
 
         shop_id: this.product.shop_id,
 
         cate_id: this.product.cate_id,
         image: JSON.stringify(this.imgArr),
-      }).then((re) => {
-        console.log(re.data);
-        if(re.data.success){
-          this.$alertify.success('Thêm sản phẩm thành công!')
-        }
-        else{
-          this.$alertify.error('Thêm sản phẩm thất bại!')
-        }
-      }).catch(()=>{
-        this.$alertify.error('Thêm sản phẩm thất bại!')
       })
+        .then((re) => {
+          console.log(re.data);
+          if (re.data.success) {
+            this.$alertify.success("Thêm sản phẩm thành công!");
+          } else {
+            this.$alertify.error("Thêm sản phẩm thất bại!");
+          }
+        })
+        .catch(() => {
+          this.$alertify.error("Thêm sản phẩm thất bại!");
+        });
     },
   },
   created() {

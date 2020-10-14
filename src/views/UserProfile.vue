@@ -166,7 +166,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-city">Số CMND / Thẻ căn cước</label>
                         <input
-                          type="text"
+                          type="number  "
                           id="input-city"
                           class="form-control"
                           placeholder="City"

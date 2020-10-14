@@ -74,8 +74,7 @@
                 <div id="all" class="container tab-pane active">
                   <br />
                   <div class="table-responsive">
-                    <div>
-                    </div>
+                    <div></div>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
@@ -91,7 +90,6 @@
                           <th scope="col" class="sort" data-sort="status">
                             Trạng thái
                           </th>
-                          <th scope="col">Thao tác</th>
                         </tr>
                       </thead>
                       <tbody
@@ -120,37 +118,6 @@
                               }}</span>
                             </div>
                           </td>
-                          <td class="text-right">
-                            <div class="dropdown">
-                              <a
-                                class="btn btn-sm btn-icon-only text-light"
-                                href="#"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                <i class="fas fa-ellipsis-v"></i>
-                              </a>
-                              <div
-                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
-                              >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:voide(0)"
-                                  data-toggle="modal"
-                                  data-target="#detailBill"
-                                  
-                                  >Chi tiết đơn hàng</a
-                                >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:voide(0)"
-                                  >Thao tác kế tiếp</a
-                                >
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -160,8 +127,7 @@
                 <div id="unactive" class="container tab-pane fade">
                   <br />
                   <div class="table-responsive">
-                    <div>
-                    </div>
+                    <div></div>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
@@ -183,7 +149,7 @@
                       <tbody
                         class="list"
                         v-for="(unactive, index) in unactive"
-                        v-bind:key="index+1"
+                        v-bind:key="index + 1"
                       >
                         <tr>
                           <th scope="row">
@@ -223,17 +189,17 @@
                               >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   data-toggle="modal"
                                   data-target="#detailBill"
-                                  
                                   >Chi tiết đơn hàng</a
                                 >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
-                                  >Thao tác kế tiếp</a
-                                >
+                                  href="javascript:void(0)"
+                                  @click="checkOrder(unactive.id)"
+                                  >Duyệt đơn hàng
+                                </a>
                               </div>
                             </div>
                           </td>
@@ -246,8 +212,7 @@
                 <div id="actived" class="container tab-pane fade">
                   <br />
                   <div class="table-responsive">
-                    <div>
-                    </div>
+                    <div></div>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
@@ -269,7 +234,7 @@
                       <tbody
                         class="list"
                         v-for="(actived, index) in actived"
-                        v-bind:key="index+2"
+                        v-bind:key="index + 2"
                       >
                         <tr>
                           <th scope="row">
@@ -309,17 +274,17 @@
                               >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   data-toggle="modal"
                                   data-target="#detailBill"
-                                  
                                   >Chi tiết đơn hàng</a
                                 >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
-                                  >Thao tác kế tiếp</a
-                                >
+                                  href="javascript:void(0)"
+                                  @click="daDongGoi(actived.id)"
+                                  >Đã đóng gói
+                                </a>
                               </div>
                             </div>
                           </td>
@@ -332,8 +297,7 @@
                 <div id="packaged" class="container tab-pane fade">
                   <br />
                   <div class="table-responsive">
-                    <div>
-                    </div>
+                    <div></div>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
@@ -355,7 +319,7 @@
                       <tbody
                         class="list"
                         v-for="(packaged, index) in packaged"
-                        v-bind:key="index+3"
+                        v-bind:key="index + 3"
                       >
                         <tr>
                           <th scope="row">
@@ -395,15 +359,14 @@
                               >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   data-toggle="modal"
                                   data-target="#detailBill"
-                                  
                                   >Chi tiết đơn hàng</a
                                 >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   >Thao tác kế tiếp</a
                                 >
                               </div>
@@ -418,8 +381,7 @@
                 <div id="shipping" class="container tab-pane fade">
                   <br />
                   <div class="table-responsive">
-                    <div>
-                    </div>
+                    <div></div>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
@@ -441,7 +403,7 @@
                       <tbody
                         class="list"
                         v-for="(shipping, index) in shipping"
-                        v-bind:key="index+4"
+                        v-bind:key="index + 4"
                       >
                         <tr>
                           <th scope="row">
@@ -481,15 +443,14 @@
                               >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   data-toggle="modal"
                                   data-target="#detailBill"
-                                  
                                   >Chi tiết đơn hàng</a
                                 >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   >Thao tác kế tiếp</a
                                 >
                               </div>
@@ -504,8 +465,7 @@
                 <div id="shipped" class="container tab-pane fade">
                   <br />
                   <div class="table-responsive">
-                    <div>
-                    </div>
+                    <div></div>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
@@ -527,7 +487,7 @@
                       <tbody
                         class="list"
                         v-for="(shipped, index) in shipped"
-                        v-bind:key="index+5"
+                        v-bind:key="index + 5"
                       >
                         <tr>
                           <th scope="row">
@@ -567,15 +527,14 @@
                               >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   data-toggle="modal"
                                   data-target="#detailBill"
-                                  
                                   >Chi tiết đơn hàng</a
                                 >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   >Thao tác kế tiếp</a
                                 >
                               </div>
@@ -590,8 +549,7 @@
                 <div id="cancelled" class="container tab-pane fade">
                   <br />
                   <div class="table-responsive">
-                    <div>
-                    </div>
+                    <div></div>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
@@ -613,7 +571,7 @@
                       <tbody
                         class="list"
                         v-for="(cancelled, index) in cancelled"
-                        v-bind:key="index+6"
+                        v-bind:key="index + 6"
                       >
                         <tr>
                           <th scope="row">
@@ -653,15 +611,14 @@
                               >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   data-toggle="modal"
                                   data-target="#detailBill"
-                                  
                                   >Chi tiết đơn hàng</a
                                 >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   >Thao tác kế tiếp</a
                                 >
                               </div>
@@ -676,8 +633,7 @@
                 <div id="returned" class="container tab-pane fade">
                   <br />
                   <div class="table-responsive">
-                    <div>
-                    </div>
+                    <div></div>
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
@@ -699,7 +655,7 @@
                       <tbody
                         class="list"
                         v-for="(returned, index) in returned"
-                        v-bind:key="index+7"
+                        v-bind:key="index + 7"
                       >
                         <tr>
                           <th scope="row">
@@ -739,15 +695,14 @@
                               >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   data-toggle="modal"
                                   data-target="#detailBill"
-                                  
                                   >Chi tiết đơn hàng</a
                                 >
                                 <a
                                   class="dropdown-item"
-                                  href="javascript:voide(0)"
+                                  href="javascript:void(0)"
                                   >Thao tác kế tiếp</a
                                 >
                               </div>
@@ -758,7 +713,6 @@
                     </table>
                   </div>
                 </div>
-                
               </div>
               <div class="card-footer py-4">
                 <nav aria-label="...">
@@ -800,7 +754,9 @@
 
 <script>
 import axios from "axios";
-import {  server, store} from "../main";
+import { server, store } from "../main";
+import Notiflix from "notiflix";
+
 export default {
   data() {
     return {
@@ -812,16 +768,16 @@ export default {
       shipped: [],
       cancelled: [],
       returned: [],
-      newOrder:null,
+      newOrder: null,
     };
   },
-  created(){
-    this.selectOrder = store.state.selectOrder
-    
+  created() {
+    this.selectOrder = store.state.selectOrder;
+
     // EventBus.$on("new-order",(data)=>{
     //   this.$alertify.success(`Bạn có đơn hàng mới từ ${data.username}`)
     // })
-    
+
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");
@@ -833,19 +789,22 @@ export default {
       return "";
     }
     this.shop_id = JSON.parse(getCookie("user_id"));
-    
-    this.allOrder()
-    this.unActive()
-    this.active()
-    this.donggoi()
-    this.shippingfc()
-    this.shippedfc()
-    this.cancelledfc()
-    this.returnedfc()
+
+    this.allOrder();
+    this.unActive();
+    this.active();
+    this.donggoi();
+    this.shippingfc();
+    this.shippedfc();
+    this.cancelledfc();
+    this.returnedfc();
   },
-  methods:{
-    allOrder(){
-        //Tất cả
+  mounted(){
+    Notiflix.Notify.Init({fontSize:'15px',timeout:4000,messageMaxLength:200,position:'right-bottom'});
+  },
+  methods: {
+    allOrder() {
+      //Tất cả
       axios
         .post(`${server}/get-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
@@ -855,18 +814,18 @@ export default {
           }
         });
     },
-    unActive(){
+    unActive() {
       //Chưa duyệt
-        axios
-          .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
-          .then((response) => {
-            var unactive = response.data;
-            for (var item in unactive) {
-              this.unactive.push(unactive[item]);
-            }
-          });
+      axios
+        .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
+        .then((response) => {
+          var unactive = response.data;
+          for (var item in unactive) {
+            this.unactive.push(unactive[item]);
+          }
+        });
     },
-    active(){
+    active() {
       //Đã duyệt
       axios
         .post(`${server}/active-order-shop`, { shop_id: this.shop_id })
@@ -877,7 +836,7 @@ export default {
           }
         });
     },
-    donggoi(){
+    donggoi() {
       //Đã đóng gói
       axios
         .post(`${server}/update-order-shop`, { shop_id: this.shop_id })
@@ -888,7 +847,7 @@ export default {
           }
         });
     },
-    shippingfc(){
+    shippingfc() {
       //Đang giao
       axios
         .post(`${server}/confirm-order-shop`, { shop_id: this.shop_id })
@@ -899,7 +858,7 @@ export default {
           }
         });
     },
-    shippedfc(){
+    shippedfc() {
       //Đã giao
       axios
         .post(`${server}/finish-order-shop`, { shop_id: this.shop_id })
@@ -910,7 +869,7 @@ export default {
           }
         });
     },
-    cancelledfc(){
+    cancelledfc() {
       //Đã hủy
       axios
         .post(`${server}/cancel-order-shop`, { shop_id: this.shop_id })
@@ -921,7 +880,7 @@ export default {
           }
         });
     },
-    returnedfc(){
+    returnedfc() {
       //Trả hàng
       axios
         .post(`${server}/return-order-shop`, { shop_id: this.shop_id })
@@ -931,8 +890,23 @@ export default {
             this.returned.push(returned[item]);
           }
         });
-      }
-  }
+    },
+    //Thao tác với đơn hàng
+    //đã đóng gói
+    daDongGoi(id) {
+      axios.post(`${server}/shop-update`, { id:id })
+      .then((response)=>{
+        if(response.data.success){
+          
+          Notiflix.Notify.Success(
+          `Đã đóng gói`,
+          window.location.href=""
+        )
+        }
+        console.log(response.data);
+      })
+    },
+  },
 };
 </script>
 <style>

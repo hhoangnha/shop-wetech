@@ -47,6 +47,21 @@ Vue.component('ProductAddHouseholdGoods', ProductAddHouseholdGoods)
 Vue.component('ProductAddIT', ProductAddIT)
 Vue.component('ProductAddToy', ProductAddToy)
 
+// modal detail products
+import ModalBook from './views/ModalDetailProducts/ModalBook.vue'
+import ModalElectronic from './views/ModalDetailProducts/ModalElectronic.vue'
+import ModalFashion from './views/ModalDetailProducts/ModalFashion.vue'
+import ModalHouseholdGoods from './views/ModalDetailProducts/ModalHouseholdGoods.vue'
+import ModalIT from './views/ModalDetailProducts/ModalIT.vue'
+import ModalToy from './views/ModalDetailProducts/ModalToy.vue'
+Vue.component('ModalBook', ModalBook)
+Vue.component('ModalElectronic', ModalElectronic)
+Vue.component('ModalFashion', ModalFashion)
+Vue.component('ModalHouseholdGoods', ModalHouseholdGoods)
+Vue.component('ModalIT', ModalIT)
+Vue.component('ModalToy', ModalToy)
+
+
 import Vuex from 'vuex'
 import CKEditor from 'ckeditor4-vue';
 
@@ -75,7 +90,7 @@ const userId = getCookie('user_id');
 
 export const EventBus = new Vue()
 export const socket = io(`http://192.168.1.125:3000`,{query:`userId=${userId}`})
-export const server = 'http://192.168.1.125/weTech_back/server.php/api'
+export const server = 'http://127.0.0.1:8000/api'
 Vue.use(ArgonDashboard)
 new Vue({
   router,

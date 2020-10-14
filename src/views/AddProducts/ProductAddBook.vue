@@ -321,6 +321,7 @@ export default {
         description: null,
         tag: null,
         status_discount: null,
+        status_product: '0',
 
         shop_id: null,
 
@@ -384,6 +385,7 @@ export default {
         description: this.product.description,
         tag: this.product.tag,
         status_discount: this.product.status_discount,
+        status_product: "0",
 
         shop_id: this.product.shop_id,
 
