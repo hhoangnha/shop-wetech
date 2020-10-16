@@ -410,7 +410,7 @@ export default {
       }
       return "";
     }
-    this.shop_id = JSON.parse(getCookie("user_id"));
+    this.shop_id = JSON.parse(getCookie("shop_id"));
     //Chưa duyệt
     this.getUnactive();
     //

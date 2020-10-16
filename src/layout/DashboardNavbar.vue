@@ -40,7 +40,7 @@
         <base-dropdown class="nav-link pr-0">
           <div class="media align-items-center" slot="title">
             <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" v-bind:src="user.avatar" />
+              <img alt="Avatar" v-bind:src="user.avatar" />
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
               <span class="mb-0 text-sm font-weight-bold">{{ user.name }}</span>

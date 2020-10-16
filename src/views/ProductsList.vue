@@ -381,7 +381,7 @@ export default {
       }
       return "";
     }
-    this.shop_id = JSON.parse(getCookie("user_id"));
+    this.shop_id = JSON.parse(getCookie("shop_id"));
     axios
       .post(`${server}/show-product-shop`, { shop_id: this.shop_id })
       .then((response) => {
