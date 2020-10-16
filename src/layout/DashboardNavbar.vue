@@ -30,7 +30,7 @@
             v-bind:key="index"
           >
             <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" v-bind:src="notification.avatar" />
+              <img alt="Avatar" v-bind:src="notification.avatar" />
             </span>
             <div class="col"><strong>{{notification.username}}</strong> {{notification.msg}} </div>
           </div>
@@ -107,7 +107,8 @@ export default {
     Logout() {
       document.cookie = `user=null; max-age=0`;
       document.cookie = `user_id=null; max-age=0`;
-      window.location = "http://localhost:8080/#/login";
+      document.cookie = `shop_id=null; max-age=0`;
+      window.location = "/login";
     },
   },
 };

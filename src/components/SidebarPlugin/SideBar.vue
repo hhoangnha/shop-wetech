@@ -23,7 +23,7 @@
               >
                 <span class="avatar avatar-sm rounded-circle">
                   <img
-                    alt="Image placeholder"
+                    alt="Avatar"
                     v-bind:src="notification.avatar"
                   />
                 </span>
@@ -160,9 +160,10 @@ export default {
     }
   },
   Logout() {
-    document.cookie = `user=null; max-age=1`;
-    document.cookie = `user_id=null; max-age=1`;
-    window.location = "http://localhost:8080/#/login";
+    document.cookie = `user=null; max-age=0`;
+    document.cookie = `user_id=null; max-age=0`;
+    document.cookie = `shop_id=null; max-age=0`;
+    window.location = "/login";
   },
 };
 </script>
