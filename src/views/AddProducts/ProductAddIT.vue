@@ -510,7 +510,7 @@ export default {
       return "";
     }
 
-    this.product.shop_id = JSON.parse(getCookie("user_id"));
+    this.product.shop_id = JSON.parse(getCookie("shop_id"));
 
     this.danhMucChinh = store.state.danhMucChinh;
 
