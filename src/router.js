@@ -12,11 +12,15 @@ import OrderNew from './views/OrderNew.vue'
 import ImagesCover from './views/ImagesCover.vue'
 import ImagesAvatar from './views/ImagesAvatar.vue'
 import ViewProductDetail from './views/ViewProductDetail.vue'
+import SaleOff from './views/SaleOff.vue'
 
 //add detail product
-import DetailAddBook from './views/AddDetails/DetailsAddBook.vue'
-import DetailAddToy from './views/AddDetails/DetailsAddToy.vue'
-import DetailAddFashion from './views/AddDetails/DetailsAddFashion.vue'
+import DetailsAddBook from './views/AddDetails/DetailsAddBook.vue'
+import DetailsAddToy from './views/AddDetails/DetailsAddToy.vue'
+import DetailsAddFashion from './views/AddDetails/DetailsAddFashion.vue'
+import DetailsAddHouseholdGoods from './views/AddDetails/DetailsAddHouseholdGoods.vue'
+import DetailsAddIT from './views/AddDetails/DetailsAddIT.vue'
+import DetailsAddElectronic from './views/AddDetails/DetailsAddElectronic.vue'
 
 
 export default new Router({
@@ -85,21 +89,41 @@ export default new Router({
           name: 'view-product-detail',
           component: ViewProductDetail
         },
-
+        {
+          path: '/sale-off',
+          name: 'sale-off',
+          component: SaleOff
+        },
+        //thêm biến thể
         {
           path: '/detail-add-book',
           name: 'detail-add-book',
-          component: DetailAddBook
+          component: DetailsAddBook
         },
         {
           path: '/detail-add-toy',
           name: 'detail-add-toy',
-          component: DetailAddToy
+          component: DetailsAddToy
         },
         {
           path: '/detail-add-fashion',
           name: 'detail-add-fashion',
-          component: DetailAddFashion
+          component: DetailsAddFashion
+        },
+        {
+          path: '/detail-add-house-hold-goods',
+          name: 'detail-add-house-hold-goods',
+          component: DetailsAddHouseholdGoods
+        },
+        {
+          path: '/detail-add-information-technology',
+          name: 'detail-add-information-technology',
+          component: DetailsAddIT
+        },
+        {
+          path: '/detail-add-electronic',
+          name: 'detail-add-electronic',
+          component: DetailsAddElectronic
         },
       ]
     },

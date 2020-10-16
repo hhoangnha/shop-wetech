@@ -131,7 +131,7 @@ export default {
     logo: {
       type: String,
       default:
-        "https://res.cloudinary.com/dhkfqcpq8/image/upload/v1602508399/logo-final2_gtcc7k.png",
+        "https://res.cloudinary.com/nguy-n-ti-n/image/upload/v1602761547/logo2_a4idbi.png",
       description: "Sidebar app logo",
     },
     autoClose: {

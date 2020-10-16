@@ -1,14 +1,28 @@
 <template>
   <div>
+    <base-header
+      class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+      style="
+        min-height: 100px;
+        background-image: url(img/theme/profile-cover.jpg);
+        background-size: cover;
+        background-position: center top;
+      "
+    >
+      <!-- Mask -->
+      <span class="mask bg-gradient-success opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center"></div>
+    </base-header>
     <!-- Main content -->
     <!-- Page content -->
-    <div class="container-fluid mt--6">
+    <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h5>Thêm sản phẩm - Thời trang</h5>
+              <h5>Thêm sản phẩm - Hàng tiêu dùng & thực phẩm</h5>
             </div>
             <div class="card-body">
               <form>
@@ -23,8 +37,8 @@
                           type="text"
                           class="form-control"
                           placeholder="Tên sản phẩm"
-                          v-model="product.product_name"
-                          
+                          :value="product.product_name"
+                          readonly
                         />
                       </div>
                     </div>
@@ -36,57 +50,39 @@
                           type="text"
                           class="form-control"
                           placeholder="Thương hiệu"
-                          v-model="product.brand"
-                          
+                          :value="product.brand"
+                          readonly
                         />
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-6">
-                      <div class="row">
-                        <!-- danh mục chính -->
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label class="form-control-label"
-                              >Danh mục chính</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder
-                              readonly
-                              :value="danhMucChinh"
-                              
-                            />
-                          </div>
-                        </div>
-                        <!-- danh mục con -->
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label class="form-control-label"
-                              >Danh mục con</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder
-                              :value="danhMucCon"
-                              readonly
-                              
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Trạng thái sản phẩm -->
+                    <!-- danh mục chính -->
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label">Mở bán ngay ?</label>
-                        <select class="form-control" v-model="product.status">
-                          <option value="1">Mở bán sản phẩm (Còn hàng)</option>
-                          <option value="0">Chờ lấy hàng (Hết hàng)</option>
-                        </select>
+                        <label class="form-control-label" for
+                          >Danh mục chính</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          readonly
+                          :value="product.category"
+                        />
+                      </div>
+                    </div>
+                    <!-- danh mục con -->
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for
+                          >Danh mục con</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          :value="product.cate_name"
+                          readonly
+                        />
                       </div>
                     </div>
                   </div>
@@ -99,13 +95,11 @@
                     <!-- Kích thước sản phẩm -->
                     <div class="col-lg-3">
                       <div class="form-group">
-                        <label class="form-control-label"
-                          >Size</label
-                        >
+                        <label class="form-control-label">Kích thước</label>
                         <input
                           class="form-control"
                           type="text"
-                          placeholder="VD: S; M; L... 1; 2; 3;..."
+                          placeholder="VD: Lớn; nhỏ; vừa;..."
                           v-model="product.size"
                         />
                       </div>
@@ -117,7 +111,7 @@
                         <input
                           type="number"
                           class="form-control"
-                          placeholder="Nếu cần thiết..."
+                          placeholder="VD: 1; 2; 0.5; 0.75;..."
                           v-model="product.weight"
                           min="0"
                         />
@@ -168,7 +162,7 @@
                       </div>
                     </div>
                     <!-- Giá giảm -->
-                    <div class="col-lg" v-if="product.status_discount==1">
+                    <div class="col-lg" v-if="product.status_discount == 1">
                       <div class="form-group">
                         <label class="form-control-label">Giá giảm</label>
                         <div class="input-group mb-3">
@@ -200,32 +194,8 @@
                   </div>
 
                   <div class="row">
-                    <!-- Kích thước sản phẩm -->
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label">Màu sắc</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          placeholder="VD: Đỏ; Xanh; Trắng,..."
-                          v-model="product.color"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label">Chất liệu</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          placeholder="VD: Giấy; nhựa;..."
-                          v-model="product.material"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6">
+                    <!-- Thể tích -->
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Nguồn gốc</label>
                         <input
@@ -236,7 +206,20 @@
                         />
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <!-- Chất liệu -->
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">Chất liệu</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="VD: Giấy; nhựa;..."
+                          v-model="product.material"
+                        />
+                      </div>
+                    </div>
+                    <!-- Cân nặng  -->
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label"
                           >Sản phẩm đi kèm / Quà tặng</label
@@ -258,47 +241,36 @@
                 <h6 class="heading-small text-muted mb-4">Mô tả</h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
-                    <label class="form-control-label">Mô tả ngắn</label>
-                    <ckeditor
-                      v-model="product.introduction"
-                      :config="editorConfig"
-                      :editor-url="editorUrl"
-                    ></ckeditor>
-                  </div>
-                  <div class="form-group">
                     <label class="form-control-label">Thêm hình ảnh</label>
-                    <div class="row d-flex justify-content-center">
-                      <div class=""><Ref /></div>
-                      <div class=""><Ref /></div>
-                      <div class=""><Ref /></div>
-                      <div class=""><Ref /></div>
-                      <div class=""><Ref /></div>
-                      <div class=""><Ref /></div>
+                    <div class="row text-center">
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
+                      <div class="col-2">
+                        <Ref />
+                      </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Mô tả chi tiết</label>
-                    <ckeditor
-                      v-model="product.description"
-                      :config="editorConfig"
-                      :editor-url="editorUrl"
-                    ></ckeditor>
-                  </div>
-
                   <div class="form-group">
                     <input
                       type="button"
                       class="btn btn-primary"
-                      name
                       value="Thêm sản phẩm"
                       @click="addProduct"
                     />
-                    <input
-                      type="button"
-                      class="btn btn-danger"
-                      name
-                      value="Hủy"
-                    />
+                    <input type="button" class="btn btn-danger" value="Hủy" />
                   </div>
                 </div>
               </form>
@@ -312,8 +284,9 @@
 
 <script>
 import Axios from "axios";
+import $ from "jquery";
 import { store, EventBus, server } from "./../../main";
-import Ref from "./Ref";
+import Ref from "./../AddProducts/Ref.vue";
 
 export default {
   data() {
@@ -321,28 +294,27 @@ export default {
       danhMucChinh: "",
       danhMucCon: "",
       imgArr: [],
+      product_id: null,
       product: {
-        quantity: 0,
+        quantity: null,
         size: null,
         color: null,
         price: null,
-        status: null,
         discount_price: null,
         origin: null,
         accessory: null,
         dimension: null,
         weight: null,
+        volume: null,
         system: null,
         material: null,
         screen_size: null,
         wattage: null,
-        volume: null,
         resolution: null,
         memory: null,
+
         product_name: null,
         brand: null,
-        introduction: null,
-        description: null,
         tag: null,
         status_discount: "0",
         status_product: "0",
@@ -386,36 +358,36 @@ export default {
   },
   methods: {
     addProduct() {
-      Axios.post(`${server}/add-product`, {
+      Axios.post(`${server}/add-detail`, {
         quantity: this.product.quantity,
-        size: this.product.size,
+        size: this.product.quantity,
         color: this.product.color,
         price: this.product.price,
-        status: this.product.status,
         discount_price: this.product.discount_price,
         origin: this.product.origin,
         accessory: this.product.accessory,
         dimension: this.product.dimension,
         weight: this.product.weight,
+        volume: this.product.volume,
         system: this.product.system,
         material: this.product.material,
         screen_size: this.product.screen_size,
         wattage: this.product.wattage,
-        volume: this.product.volume,
         resolution: this.product.resolution,
         memory: this.product.memory,
+        status_discount: 0,
+
         product_name: this.product.product_name,
         brand: this.product.brand,
-        introduction: this.product.introduction,
-        description: this.product.description,
         tag: this.product.tag,
-        status_discount: this.product.status_discount,
-        status_product: "0",
+        status_product: 0,
 
         shop_id: this.product.shop_id,
 
         cate_id: this.product.cate_id,
         image: JSON.stringify(this.imgArr),
+
+        product_id: this.product_id,
       })
         .then((re) => {
           console.log(re.data);
@@ -431,6 +403,7 @@ export default {
     },
   },
   created() {
+    $(".modal-backdrop").removeClass("modal-backdrop");
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");
@@ -444,12 +417,8 @@ export default {
 
     this.product.shop_id = JSON.parse(getCookie("user_id"));
 
-    this.danhMucChinh = store.state.danhMucChinh;
-
-    EventBus.$on("catecon", (da) => {
-      this.danhMucCon = da.cate_name;
-      this.product.cate_id = da.cate_id;
-    });
+    this.product = store.state.productDetail;
+    this.product_id = store.state.category_id;
 
     EventBus.$on("bus-upload-image", (data) => {
       this.imgArr.push(data);

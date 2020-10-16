@@ -81,7 +81,7 @@
                     <h3 class="mb-0">Hồ sơ</h3>
                   </div>
                   <div class="col-4 text-right">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-primary" @click="updateProfile(user.user_id)">Lưu hồ sơ</a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-primary" @click="updateProfile()">Lưu hồ sơ</a>
                   </div>
                 </div>
               </div>
@@ -111,7 +111,8 @@
                           id="input-email"
                           class="form-control"
                           placeholder="jesse@example.com"
-                          v-bind:value="user.email"
+                         v-bind:value="user.email"
+                         readonly
                         />
                       </div>
                     </div>
@@ -125,7 +126,7 @@
                           id="input-first-name"
                           class="form-control"
                           placeholder="First name"
-                          v-bind:value="user.name"
+                          v-model="user.name"
                         />
                       </div>
                     </div>
@@ -137,7 +138,7 @@
                           id="input-last-name"
                           class="form-control"
                           placeholder="Last name"
-                          v-bind:value="user.phone_number"
+                          v-model="user.phone_number"
                         />
                       </div>
                     </div>
@@ -155,7 +156,7 @@
                           id="input-address"
                           class="form-control"
                           placeholder="Home Address"
-                          v-bind:value="user.address"
+                          v-model="user.address"
                           type="text"
                         />
                       </div>
@@ -170,7 +171,7 @@
                           id="input-city"
                           class="form-control"
                           placeholder="City"
-                          v-bind:value="user.identity_card"
+                          v-model="user.identity_card"
                         />
                       </div>
                     </div>
@@ -182,6 +183,7 @@
                           id="input-postal-code"
                           class="form-control"
                           placeholder="Postal code"
+                          v-model="user.tax"
                         />
                       </div>
                     </div>
@@ -213,22 +215,26 @@ export default {
   data() {
     return {
       user: {},
-      model: {
-        username: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        city: "",
-        country: "",
-        zipCode: "",
-        about: "",
-      },
     };
   },
   methods:{
-    updateProfile(user_id){
-      axios.post(`${server}/update-account`,{user_id})
+    updateProfile(){
+      axios.post(`${server}/update-account`,this.user)
+      .then(Response =>{
+        console.log(Response.data)
+        if (Response.data.success) {
+            this.$alertify.success("Cập nhật thông tin thành công!");
+            var user = JSON.stringify(this.user);
+            document.cookie = `user=${user}; max-age=86400` 
+          }
+          else {
+            this.$alertify.error("Thêm sản phẩm thất bại!");
+          }
+
+      })
+      .catch(() => {
+          this.$alertify.error("Cập nhật thông tin thất bại!");
+        });
     }
   },
   created(){

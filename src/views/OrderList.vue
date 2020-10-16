@@ -15,6 +15,20 @@
       <div class="container-fluid d-flex align-items-center"></div>
     </base-header>
     <div class="container-fluid mt--7">
+      <form
+        class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
+      >
+        <div class="form-group mb-0">
+          <base-input
+            placeholder="Search"
+            class="input-group-alternative"
+            alternative=""
+            addon-right-icon="fas fa-search"
+          >
+          </base-input>
+        </div>
+      </form>
+      <br>
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -754,7 +768,7 @@
 
 <script>
 import axios from "axios";
-import { server, store } from "../main";
+import { server,  } from "../main";
 import Notiflix from "notiflix";
 
 export default {
@@ -772,7 +786,7 @@ export default {
     };
   },
   created() {
-    this.selectOrder = store.state.selectOrder;
+
 
     // EventBus.$on("new-order",(data)=>{
     //   this.$alertify.success(`Bạn có đơn hàng mới từ ${data.username}`)
@@ -803,15 +817,25 @@ export default {
     Notiflix.Notify.Init({fontSize:'15px',timeout:4000,messageMaxLength:200,position:'right-bottom'});
   },
   methods: {
+    checkOrder(id){
+      axios.post(`${server}/shop-check`, { id: id }).then((response) => {
+          if(response.data.success){
+            //meu tra ve thanh cong thi goi lại api lay san pham 
+            this.unActive();
+            Notiflix.Notify.Success(
+              `Đã duyệt đơn hàng`,
+            );
+          }
+          
+      });
+    },
     allOrder() {
       //Tất cả
       axios
         .post(`${server}/get-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var all = response.data;
-          for (var item in all) {
-            this.all.push(all[item]);
-          }
+          this.all = all
         });
     },
     unActive() {
@@ -820,9 +844,8 @@ export default {
         .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var unactive = response.data;
-          for (var item in unactive) {
-            this.unactive.push(unactive[item]);
-          }
+          this.unactive = unactive
+          
         });
     },
     active() {
@@ -831,9 +854,7 @@ export default {
         .post(`${server}/active-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var actived = response.data;
-          for (var item in actived) {
-            this.actived.push(actived[item]);
-          }
+          this.actived=actived
         });
     },
     donggoi() {
@@ -842,9 +863,7 @@ export default {
         .post(`${server}/update-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var packaged = response.data;
-          for (var item in packaged) {
-            this.packaged.push(packaged[item]);
-          }
+            this.packaged=packaged
         });
     },
     shippingfc() {
@@ -853,9 +872,8 @@ export default {
         .post(`${server}/confirm-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var shipping = response.data;
-          for (var item in shipping) {
-            this.shipping.push(shipping[item]);
-          }
+          this.shipping=shipping
+
         });
     },
     shippedfc() {
@@ -864,9 +882,7 @@ export default {
         .post(`${server}/finish-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var shipped = response.data;
-          for (var item in shipped) {
-            this.shipped.push(shipped[item]);
-          }
+            this.shipped=shipped;
         });
     },
     cancelledfc() {
@@ -875,9 +891,7 @@ export default {
         .post(`${server}/cancel-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var cancelled = response.data;
-          for (var item in cancelled) {
-            this.cancelled.push(cancelled[item]);
-          }
+            this.cancelled=cancelled
         });
     },
     returnedfc() {
@@ -886,9 +900,7 @@ export default {
         .post(`${server}/return-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var returned = response.data;
-          for (var item in returned) {
-            this.returned.push(returned[item]);
-          }
+            this.returned=returned
         });
     },
     //Thao tác với đơn hàng
@@ -896,12 +908,12 @@ export default {
     daDongGoi(id) {
       axios.post(`${server}/shop-update`, { id:id })
       .then((response)=>{
-        if(response.data.success){
-          
-          Notiflix.Notify.Success(
-          `Đã đóng gói`,
-          window.location.href=""
-        )
+          if(response.data.success){
+            
+            Notiflix.Notify.Success(
+            `Đã đóng gói`,
+            window.location.href=""
+          )
         }
         console.log(response.data);
       })

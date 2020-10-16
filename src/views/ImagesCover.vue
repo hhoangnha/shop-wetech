@@ -59,12 +59,37 @@
 </template>
 
 <script>
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap/dist/js/bootstrap.bundle"
+import axios from 'axios';
+import {server} from './../main'
 export default {
+  name: "user-profile",
   data() {
-    return {};
+    return {
+      user: {},
+    };
   },
+  methods:{
+    updateProfile(){
+      axios.post(`${server}/update-account`,this.user)
+      .then(Response =>{
+        console.log(Response.data)
+      })
+    }
+  },
+  created(){
+    function getCookie(cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0; i<ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1);
+          if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+      }
+      return "";
+    } 
+
+    this.user = JSON.parse(getCookie("user"))
+  }
 };
 </script>
 

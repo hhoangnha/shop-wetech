@@ -5,20 +5,7 @@
     :show-toggle-button="false"
     expand
   >
-    <form
-      class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
-    >
-      <div class="form-group mb-0">
-        <base-input
-          placeholder="Search"
-          class="input-group-alternative"
-          alternative=""
-          addon-right-icon="fas fa-search"
-        >
-        </base-input>
-      </div>
-    </form>
-    <ul class="navbar-nav align-items-center d-none d-md-flex">
+    <ul class="navbar-nav align-items-center d-none d-md-flex ml-lg-auto">
       <base-dropdown class="nav-item" position="right" style="position: relative;">
         <a
           slot="title"
@@ -118,8 +105,8 @@ export default {
       this.showMenu = !this.showMenu;
     },
     Logout() {
-      document.cookie = `user=null; max-age=1`;
-      document.cookie = `user_id=null; max-age=1`;
+      document.cookie = `user=null; max-age=0`;
+      document.cookie = `user_id=null; max-age=0`;
       window.location = "http://localhost:8080/#/login";
     },
   },

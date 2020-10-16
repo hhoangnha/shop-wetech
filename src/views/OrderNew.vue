@@ -15,12 +15,42 @@
       <div class="container-fluid d-flex align-items-center"></div>
     </base-header>
     <div class="container-fluid mt--7">
+      <form
+        class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
+      >
+        <div class="form-group mb-0">
+          <base-input
+            placeholder="Search"
+            class="input-group-alternative"
+            alternative=""
+            addon-right-icon="fas fa-search"
+          >
+          </base-input>
+        </div>
+      </form>
+      <br />
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="container">
               <br />
-              <h4 class="text-warning">ĐƠN MỚI - ĐƠN CHỜ DUYỆT</h4>
+              <div class="row">
+                <div class="col-lg">
+                  <h4 class="text-success">ĐƠN MỚI - ĐƠN CHỜ DUYỆT</h4>
+                </div>
+                <div
+                  class="col-lg d-flex justify-content-end"
+                  v-for="(unactive, index) in unactive"
+                  v-bind:key="index + 568"
+                >
+                  <button
+                    class="btn btn-primary btn-sm"
+                    @click="activeAll(unactive)"
+                  >
+                    Duyệt tất cả
+                  </button>
+                </div>
+              </div>
               <br />
               <div class="table-responsive">
                 <div></div>
@@ -82,6 +112,7 @@
                               href="javascript:void(0)"
                               data-toggle="modal"
                               data-target="#detailBill"
+                              @click="getOrderDetail(unactive.order_detail)"
                               >Chi tiết đơn hàng</a
                             >
                             <a
@@ -116,7 +147,11 @@
                           <div class="container">
                             <div class="row">
                               <div class="col">
-                                <div class="card">
+                                <div
+                                  class="card"
+                                  v-for="(unactive, index) in unactive"
+                                  v-bind:key="index + 2"
+                                >
                                   <!-- Card header -->
                                   <div class="card-header border-0">
                                     <div class="media align-items-center">
@@ -125,32 +160,31 @@
                                         href="javascript:void(0)"
                                         class="avatar rounded-circle mr-3"
                                       >
-                                        <img
-                                          alt="Image placeholder"
-                                          src=""
-                                        />
+                                        <img alt="Image placeholder" src="" />
                                       </a>
-                                      <div class="media-body">
-                                        <span class="name mb-0 text-sm"
-                                          >User người dùng</span
-                                        >
-                                        <a href>
-                                          <span
-                                            class="badge badge-pill badge-info"
-                                            >Chat</span
-                                          >
-                                        </a>
+                                      <div
+                                        class="media-body"
+                                        v-for="(modalOrderDetail,
+                                        index) in modalOrderDetail"
+                                        :key="index + 100"
+                                      >
+                                        <span class="name mb-0 text-sm">
+                                          <strong>{{ unactive.name }}</strong>
+                                        </span>
+                                        - <img src="https://i.pinimg.com/originals/a0/c7/d2/a0c7d21bb6e784b884560d83215aca16.png" alt="" width="15">
+                                        {{ modalOrderDetail.phone_number }}
                                       </div>
                                       <!-- địa chỉ người dùng -->
                                       <div class="float-right">
                                         <i class="ni ni-delivery-fast"></i>
                                         <span class="name mb-0 text-sm">
-                                          288, Nguyễn Văn Linh, phường An Khánh,
-                                          quận Ninh Kiều, TP. Cần Thơ
+                                          {{ unactive.address }}
                                         </span>
                                         &emsp; | &emsp;
-                                        <span class="name mb-0 text-sm"
-                                          >Trạng thái</span
+                                        <span class="badge badge-pill badge-primary"
+                                          style="font-family: Times New Roman "><strong>{{
+                                            unactive.status
+                                          }}</strong></span
                                         >
                                       </div>
                                     </div>
@@ -203,10 +237,13 @@
                                         >
                                           Thành tiền
                                         </th>
-                                        <th scope="col">Thao tác</th>
                                       </tr>
                                       <tbody class="list">
-                                        <tr>
+                                        <tr
+                                          v-for="(modalOrderDetail,
+                                          index) in modalOrderDetail"
+                                          :key="index + 99"
+                                        >
                                           <th scope="row">
                                             <div
                                               class="media align-items-center"
@@ -218,53 +255,32 @@
                                               >
                                                 <img
                                                   alt="Image placeholder"
-                                                  src=""
+                                                  :src="modalOrderDetail.image"
                                                 />
                                               </a>
                                               <!-- tên sản phẩm -->
                                               <div class="media-body">
-                                                <span class="name mb-0 text-sm"
-                                                  >Argon Design System</span
+                                                <span
+                                                  class="name mb-0 text-sm"
+                                                  >{{
+                                                    modalOrderDetail.product_name
+                                                  }}</span
                                                 >
                                               </div>
                                             </div>
                                           </th>
                                           <!-- giá sản phẩm -->
-                                          <td>$2500 USD</td>
-                                          <td>x2</td>
-                                          <td>màu</td>
-                                          <td>size</td>
-                                          <td>Thành tiền</td>
-                                          <td class="text-right">
-                                            <div class="dropdown">
-                                              <a
-                                                class="btn btn-sm btn-icon-only text-light"
-                                                href="#"
-                                                role="button"
-                                                data-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
-                                              >
-                                                <i
-                                                  class="fas fa-ellipsis-v"
-                                                ></i>
-                                              </a>
-                                              <div
-                                                class="dropdown-menu dropdown-menu-right drodown-menu-arrow"
-                                              >
-                                                <!-- Button to Open the Modal -->
-                                                <a
-                                                  class="dropdown-item"
-                                                  href="javascript:void(0)"
-                                                  >Cập nhật</a
-                                                >
-                                                <a
-                                                  class="dropdown-item"
-                                                  href="javascript:void(0)"
-                                                  >Xóa</a
-                                                >
-                                              </div>
-                                            </div>
+                                          <td>{{ modalOrderDetail.price }}</td>
+                                          <td>
+                                            {{ modalOrderDetail.cart_quantity }}
+                                          </td>
+                                          <td>{{ modalOrderDetail.color }}</td>
+                                          <td>{{ modalOrderDetail.size }}</td>
+                                          <td>
+                                            {{
+                                              modalOrderDetail.price *
+                                              modalOrderDetail.cart_quantity
+                                            }}
                                           </td>
                                         </tr>
                                       </tbody>
@@ -380,6 +396,7 @@ export default {
   data() {
     return {
       unactive: [],
+      modalOrderDetail: [],
     };
   },
   mounted() {
@@ -405,6 +422,11 @@ export default {
     });
   },
   methods: {
+    //Modal detail orders
+    getOrderDetail(order_detail) {
+      this.modalOrderDetail = JSON.parse(order_detail);
+    },
+    //Xuất đơn chờ duyệt
     getUnactive() {
       axios
         .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
@@ -415,6 +437,7 @@ export default {
           }
         });
     },
+    //Duyệt sản phẩm theo id
     checkOrder(id) {
       axios.post(`${server}/shop-check`, { id: id }).then((response) => {
         if (response.data.success) {
@@ -426,6 +449,7 @@ export default {
         console.log(response.data);
       });
     },
+    // Duyệt tất cả sản phẩm
   },
 };
 </script>

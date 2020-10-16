@@ -5,7 +5,7 @@
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
                           <div>
-                            <img src="https://res.cloudinary.com/dhkfqcpq8/image/upload/v1602508399/logo-final2_gtcc7k.png" alt="" width="50px">
+                            <img src="https://res.cloudinary.com/nguy-n-ti-n/image/upload/v1602691772/logo_zonvge.png" alt="" width="50px">
                             </div>
                             <small>Đăng nhập lại tài khoản của bạn</small>
                         </div>
