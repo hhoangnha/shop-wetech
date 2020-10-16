@@ -70,6 +70,7 @@ export default {
             var user = JSON.stringify(abc) 
             document.cookie = `user=${user}; max-age=86400`
             document.cookie = `user_id=${abc.user_id}; max-age=86400`
+            document.cookie = `shop_id=${abc.shop_id}; max-age=86400`
             window.location.href = "http://localhost:8080/"
             console.log(abc)
           });
