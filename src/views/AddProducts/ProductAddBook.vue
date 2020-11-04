@@ -97,7 +97,7 @@
                 <div class="pl-lg-4" id="detailNext">
                   <div class="row">
                     <!-- Kích thước sản phẩm -->
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label"
                           >Thông số kích thước</label
@@ -111,7 +111,7 @@
                       </div>
                     </div>
                     <!-- Cân nặng  -->
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Cân nặng (Kg)</label>
                         <input
@@ -124,7 +124,7 @@
                       </div>
                     </div>
                     <!-- Nguồn gốc -->
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Nguồn gốc</label>
                         <input
@@ -135,23 +135,11 @@
                         />
                       </div>
                     </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label class="form-control-label">Khuyến mãi ?</label>
-                        <select
-                          class="form-control"
-                          v-model="product.status_discount"
-                        >
-                          <option value="1" selected>Khuyến mãi</option>
-                          <option value="0" selected>Không khuyến mãi</option>
-                        </select>
-                      </div>
-                    </div>
                   </div>
 
                   <div class="row">
                     <!-- Đơn giá -->
-                    <div class="col-lg">
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Đơn giá</label>
                         <div class="input-group mb-3">
@@ -167,25 +155,8 @@
                         </div>
                       </div>
                     </div>
-                    <!-- Giá giảm -->
-                    <div class="col-lg" v-if="product.status_discount==1">
-                      <div class="form-group">
-                        <label class="form-control-label">Giá giảm</label>
-                        <div class="input-group mb-3">
-                          <input
-                            type="number"
-                            class="form-control"
-                            placeholder="VD:99000"
-                            v-model="product.discount_price"
-                          />
-                          <div class="input-group-append">
-                            <span class="input-group-text">VNĐ</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                     <!-- Số lượng kho -->
-                    <div class="col-lg">
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Số lượng nhập</label>
                         <input
@@ -197,7 +168,64 @@
                         />
                       </div>
                     </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">Khuyến mãi ?</label>
+                        <select
+                          class="form-control"
+                          v-model="product.status_discount"
+                        >
+                          <option value="1" selected>Khuyến mãi</option>
+                          <option value="0" selected>Không khuyến mãi</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
+
+                  <div class="row" v-if="product.status_discount==1">
+                    <!-- Giá giảm -->
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">Giảm giá (%)</label>
+                        <div class="input-group mb-3">
+                          <input
+                            type="number"
+                            class="form-control"
+                            placeholder="VD: 55; 45..."
+                            v-model="product.percent"
+                            min="0"
+                            max="100"
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Từ ngày -->
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">Từ ngày</label>
+                        <input
+                          type="datetime-local"
+                          class="form-control"
+                          v-model="product.from_day"
+                        />
+                      </div>
+                    </div>
+                    <!-- Từ ngày -->
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">Đến ngày</label>
+                        <input
+                          type="datetime-local"
+                          class="form-control"
+                          v-model="product.to_day"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
 
                   <div class="row">
                     <!-- Kích thước sản phẩm -->
@@ -274,6 +302,7 @@
                       type="button"
                       class="btn btn-danger"
                       name
+                      @click="cancel"
                       value="Hủy"
                     />
                   </div>
@@ -291,6 +320,7 @@
 import Axios from "axios";
 import { store, EventBus, server } from "./../../main";
 import Ref from "./Ref";
+import swal from 'sweetalert';
 
 export default {
   data() {
@@ -304,7 +334,6 @@ export default {
         color: null,
         price: null,
         status: null,
-        discount_price: null,
         origin: null,
         accessory: null,
         dimension: null,
@@ -323,6 +352,9 @@ export default {
         tag: null,
         status_discount: "0",
         status_product: "0",
+        percent: null,
+        from_day: null,
+        to_day: null,
 
         shop_id: null,
 
@@ -369,7 +401,6 @@ export default {
         color: this.product.color,
         price: this.product.price,
         status: this.product.status,
-        discount_price: this.product.discount_price,
         origin: this.product.origin,
         accessory: this.product.accessory,
         dimension: this.product.dimension,
@@ -388,6 +419,9 @@ export default {
         tag: this.product.tag,
         status_discount: this.product.status_discount,
         status_product: "0",
+        percent: this.product.percent,
+        from_day: this.product.from_day,
+        to_day: this.product.to_day,
 
         shop_id: this.product.shop_id,
 
@@ -397,15 +431,27 @@ export default {
         .then((re) => {
           console.log(re.data);
           if (re.data.success) {
-            this.$alertify.success("Thêm sản phẩm thành công!");
-          } else {
-            this.$alertify.error("Thêm sản phẩm thất bại!");
+            setTimeout(function(){
+            window.location.reload(1);
+          }, 1000);
+          swal({
+            title: "Thành công!",
+            icon: "success",
+            buttons: false
+          });
           }
         })
         .catch(() => {
-          this.$alertify.error("Thêm sản phẩm thất bại!");
+          swal({
+            title: "Thất bại!",
+            icon: "error",
+            button: "Kiểm tra lại"
+          });
         });
     },
+    cancel(){
+      
+    }
   },
   created() {
     function getCookie(cname) {

@@ -28,7 +28,7 @@
           </base-input>
         </div>
       </form>
-      <br>
+      <br />
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -115,26 +115,40 @@
                           <th scope="row">
                             <div class="media align-items-center">
                               <div class="media-body">
-                                <span class="name mb-0 text-sm">{{
-                                  all.id
-                                }}</span>
+                                <span class="name mb-0 text-sm"></span>
                               </div>
                             </div>
                           </th>
-                          <td class="budget">{{ all.name }}</td>
+                          <td class="budget">ádasd</td>
                           <td>
-                            <span class="status">{{ all.total }}</span>
+                            
                           </td>
                           <td>
                             <div class="d-flex align-items-center">
-                              <span class="completion mr-2">{{
-                                all.status
-                              }}</span>
+                              <span class="completion mr-2">sad</span>
                             </div>
                           </td>
                         </tr>
                       </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
                 <!-- Chờ duyệt -->
@@ -211,7 +225,7 @@
                                 <a
                                   class="dropdown-item"
                                   href="javascript:void(0)"
-                                  @click="checkOrder(unactive.id)"
+                                  
                                   >Duyệt đơn hàng
                                 </a>
                               </div>
@@ -220,6 +234,24 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
                 <!-- Đã duyệt -->
@@ -296,7 +328,7 @@
                                 <a
                                   class="dropdown-item"
                                   href="javascript:void(0)"
-                                  @click="daDongGoi(actived.id)"
+                                  
                                   >Đã đóng gói
                                 </a>
                               </div>
@@ -305,6 +337,24 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
                 <!-- Đã đóng gói -->
@@ -389,6 +439,24 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
                 <!-- Đang giao -->
@@ -473,6 +541,24 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
                 <!-- Đã giao -->
@@ -557,6 +643,24 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
                 <!-- Đã hủy -->
@@ -641,6 +745,24 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
                 <!-- Trả hàng -->
@@ -725,38 +847,26 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer py-4">
-                <nav aria-label="...">
-                  <ul class="pagination justify-content-end mb-0">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">
-                        <i class="fas fa-angle-left"></i>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                    </li>
-                    <li class="page-item active">
-                      <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        2
-                        <span class="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        <i class="fas fa-angle-right"></i>
-                        <span class="sr-only">Next</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
               </div>
             </div>
           </div>
@@ -768,7 +878,7 @@
 
 <script>
 import axios from "axios";
-import { server,  } from "../main";
+import { server } from "../main";
 import Notiflix from "notiflix";
 
 export default {
@@ -786,8 +896,6 @@ export default {
     };
   },
   created() {
-
-
     // EventBus.$on("new-order",(data)=>{
     //   this.$alertify.success(`Bạn có đơn hàng mới từ ${data.username}`)
     // })
@@ -813,29 +921,38 @@ export default {
     this.cancelledfc();
     this.returnedfc();
   },
-  mounted(){
-    Notiflix.Notify.Init({fontSize:'15px',timeout:4000,messageMaxLength:200,position:'right-bottom'});
+  mounted() {
+    Notiflix.Notify.Init({
+      fontSize: "15px",
+      timeout: 4000,
+      messageMaxLength: 200,
+      position: "right-bottom",
+    });
   },
   methods: {
-    checkOrder(id){
-      axios.post(`${server}/shop-check`, { id: id }).then((response) => {
-          if(response.data.success){
-            //meu tra ve thanh cong thi goi lại api lay san pham 
-            this.unActive();
-            Notiflix.Notify.Success(
-              `Đã duyệt đơn hàng`,
-            );
-          }
-          
-      });
-    },
+    // checkOrder(id) {
+    //   axios.post(`${server}/shop-check`, { id: id }).then((response) => {
+    //     if (response.data.success) {
+    //       //meu tra ve thanh cong thi goi lại api lay san pham
+    //       this.unActive();
+    //       Notiflix.Notify.Success(`Đã duyệt đơn hàng`);
+    //     }
+    //   });
+    // },
     allOrder() {
       //Tất cả
       axios
         .post(`${server}/get-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
-          var all = response.data;
-          this.all = all
+          var all = response.data.data;
+          this.current_page = response.data.current_page;
+          this.next_page = response.data.next_page_url;
+          this.previous_page = response.data.prev_page_url;
+          this.all = all;
+          // for (var item in all) {
+          //   this.all.push(all[item]);
+          //   // console.log(response.data);
+          // }
         });
     },
     unActive() {
@@ -843,9 +960,15 @@ export default {
       axios
         .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
-          var unactive = response.data;
-          this.unactive = unactive
-          
+          var unactive = response.data.data;
+          this.current_page = response.data.current_page;
+          this.next_page = response.data.next_page_url;
+          this.previous_page = response.data.prev_page_url;
+          for (var item in unactive) {
+            this.unactive.push(unactive[item]);
+            
+          }
+          console.log(response.data);
         });
     },
     active() {
@@ -854,26 +977,25 @@ export default {
         .post(`${server}/active-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var actived = response.data;
-          this.actived=actived
+          this.actived = actived;
         });
     },
-    donggoi() {
-      //Đã đóng gói
-      axios
-        .post(`${server}/update-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var packaged = response.data;
-            this.packaged=packaged
-        });
-    },
+    // donggoi() {
+    //   //Đã đóng gói
+    //   axios
+    //     .post(`${server}/update-order-shop`, { shop_id: this.shop_id })
+    //     .then((response) => {
+    //       var packaged = response.data;
+    //       this.packaged = packaged;
+    //     });
+    // },
     shippingfc() {
       //Đang giao
       axios
         .post(`${server}/confirm-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var shipping = response.data;
-          this.shipping=shipping
-
+          this.shipping = shipping;
         });
     },
     shippedfc() {
@@ -882,7 +1004,7 @@ export default {
         .post(`${server}/finish-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var shipped = response.data;
-            this.shipped=shipped;
+          this.shipped = shipped;
         });
     },
     cancelledfc() {
@@ -891,7 +1013,7 @@ export default {
         .post(`${server}/cancel-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var cancelled = response.data;
-            this.cancelled=cancelled
+          this.cancelled = cancelled;
         });
     },
     returnedfc() {
@@ -900,24 +1022,19 @@ export default {
         .post(`${server}/return-order-shop`, { shop_id: this.shop_id })
         .then((response) => {
           var returned = response.data;
-            this.returned=returned
+          this.returned = returned;
         });
     },
     //Thao tác với đơn hàng
     //đã đóng gói
-    daDongGoi(id) {
-      axios.post(`${server}/shop-update`, { id:id })
-      .then((response)=>{
-          if(response.data.success){
-            
-            Notiflix.Notify.Success(
-            `Đã đóng gói`,
-            window.location.href=""
-          )
-        }
-        console.log(response.data);
-      })
-    },
+    // daDongGoi(id) {
+    //   axios.post(`${server}/shop-update`, { id: id }).then((response) => {
+    //     if (response.data.success) {
+    //       Notiflix.Notify.Success(`Đã đóng gói`, (window.location.href = ""));
+    //     }
+    //     console.log(response.data);
+    //   });
+    // },
   },
 };
 </script>

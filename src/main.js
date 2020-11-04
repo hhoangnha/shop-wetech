@@ -61,6 +61,11 @@ Vue.component('ModalHouseholdGoods', ModalHouseholdGoods)
 Vue.component('ModalIT', ModalIT)
 Vue.component('ModalToy', ModalToy)
 
+import vSelect from 'vue-select'
+
+Vue.component('v-select', vSelect)
+import 'vue-select/dist/vue-select.css';
+
 
 import Vuex from 'vuex'
 import CKEditor from 'ckeditor4-vue';
@@ -72,6 +77,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     danhMucChinh: '',
+    iamageData:[],
     danhMucCon: '',
     shop: [],
     productDetail:null,
@@ -79,7 +85,8 @@ export const store = new Vuex.Store({
     notication:[],
     selectOrder:{
       username:"Nguyễn Hữu Tiến"
-    }
+    },
+    ViewProductDetail:{},
   },
 })
 
@@ -90,9 +97,10 @@ const userId = getCookie('user_id');
 
 export const EventBus = new Vue()
 export const socket = io(`http://192.168.1.125:3000`,{query:`userId=${userId}`})
-export const server = 'http://127.0.0.1:8000/api'
+export const server = 'https://website-tmdt.herokuapp.com/api'
 Vue.use(ArgonDashboard)
 new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+

@@ -200,6 +200,7 @@
     },
     mounted() {
       this.initBigChart(0);
+      
     }
   };
 </script>

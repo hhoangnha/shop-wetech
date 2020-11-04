@@ -28,7 +28,7 @@
           </base-input>
         </div>
       </form>
-      <br>
+      <br />
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -37,187 +37,434 @@
               <!-- Nav tabs -->
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#all"
-                    >Tất cả</a
+                  <a
+                    class="nav-link active"
+                    data-toggle="tab"
+                    href="#creatSaleOff"
+                    >Tạo khuyến mãi</a
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#unactive"
-                    >Chờ chuyệt</a
+                  <a class="nav-link" data-toggle="tab" href="#listSaleOff"
+                    >Danh sách khuyến mãi</a
                   >
                 </li>
               </ul>
 
-              <!-- Tất cả -->
+              <!-- Tạo khuyến mãi -->
               <div class="tab-content">
-                <div id="all" class="container tab-pane active">
-                  <br />
-                  <div class="table-responsive">
-                    <div></div>
-                    <table class="table align-items-center table-flush">
-                      <thead class="thead-light">
-                        <tr>
-                          <th scope="col" class="sort" data-sort="idBill">
-                            Mã đơn hàng
-                          </th>
-                          <th scope="col" class="sort" data-sort="nameUser">
-                            Tên khách hàng
-                          </th>
-                          <th scope="col" class="sort" data-sort="total">
-                            Tổng tiền
-                          </th>
-                          <th scope="col" class="sort" data-sort="status">
-                            Trạng thái
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody
-                        class="list"
-                        v-for="(all, index) in all"
-                        v-bind:key="index"
-                      >
-                        <tr v-bind:data-order="all.name" class="data-order">
-                          <th scope="row">
-                            <div class="media align-items-center">
-                              <div class="media-body">
-                                <span class="name mb-0 text-sm">{{
-                                  all.id
-                                }}</span>
+                <div id="creatSaleOff" class="container tab-pane active">
+                  <form>
+                    <br />
+                    <div class="pl-lg-4">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label">
+                              Tên sản phẩm
+                            </label>
+                            <v-select
+                              :options="unSaleOffoptions"
+                              label="product_name"
+                              v-model="product"
+                            >
+                              <template slot="option" slot-scope="option">
+                                <img
+                                  :src="option.image"
+                                  width="40"
+                                  height="40"
+                                />
+                                {{ option.product_name }}
+                              </template>
+                            </v-select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-control-label"
+                              >Giảm giá (%)</label
+                            >
+                            <div class="input-group mb-3">
+                              <input
+                                type="number"
+                                class="form-control"
+                                placeholder="VD: 55; 45..."
+                                min="0"
+                                max="100"
+                                v-model="percent"
+                              />
+                              <div class="input-group-append">
+                                <span class="input-group-text">%</span>
                               </div>
                             </div>
-                          </th>
-                          <td class="budget">{{ all.name }}</td>
-                          <td>
-                            <span class="status">{{ all.total }}</span>
-                          </td>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <span class="completion mr-2">{{
-                                all.status
-                              }}</span>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <!-- Chờ duyệt -->
-                <div id="unactive" class="container tab-pane fade">
-                  <br />
-                  <div class="table-responsive">
-                    <div></div>
-                    <table class="table align-items-center table-flush">
-                      <thead class="thead-light">
-                        <tr>
-                          <th scope="col" class="sort" data-sort="idBill">
-                            Mã đơn hàng
-                          </th>
-                          <th scope="col" class="sort" data-sort="nameUser">
-                            Tên khách hàng
-                          </th>
-                          <th scope="col" class="sort" data-sort="total">
-                            Tổng tiền
-                          </th>
-                          <th scope="col" class="sort" data-sort="status">
-                            Trạng thái
-                          </th>
-                          <th scope="col">Thao tác</th>
-                        </tr>
-                      </thead>
-                      <tbody
-                        class="list"
-                        v-for="(unactive, index) in unactive"
-                        v-bind:key="index + 1"
-                      >
-                        <tr>
-                          <th scope="row">
-                            <div class="media align-items-center">
-                              <div class="media-body">
-                                <span class="name mb-0 text-sm">{{
-                                  unactive.id
-                                }}</span>
-                              </div>
-                            </div>
-                          </th>
-                          <td class="budget">{{ unactive.name }}</td>
-                          <td>
-                            <span class="status">{{ unactive.total }}</span>
-                          </td>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <span class="completion mr-2">{{
-                                unactive.status
-                              }}</span>
-                            </div>
-                          </td>
-                          <td class="text-right">
-                            <div class="dropdown">
-                              <a
-                                class="btn btn-sm btn-icon-only text-light"
-                                href="#"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                <i class="fas fa-ellipsis-v"></i>
-                              </a>
-                              <div
-                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
-                              >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:void(0)"
-                                  data-toggle="modal"
-                                  data-target="#detailBill"
-                                  >Chi tiết đơn hàng</a
+                          </div>
+                          <div class="row">
+                            <!-- Từ ngày -->
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label"
+                                  >Từ ngày</label
                                 >
-                                <a
-                                  class="dropdown-item"
-                                  href="javascript:void(0)"
-                                  @click="checkOrder(unactive.id)"
-                                  >Duyệt đơn hàng
-                                </a>
+                                <input
+                                  type="datetime-local"
+                                  class="form-control"
+                                  v-model="created_at"
+                                />
                               </div>
                             </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                            <!-- Từ ngày -->
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label"
+                                  >Đến ngày</label
+                                >
+                                <input
+                                  type="datetime-local"
+                                  class="form-control"
+                                  v-model="updated_at"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="table-responsive">
+                            <table class="table align-items-center table-hover">
+                              <thead class="thead-light">
+                                <tr>
+                                  <th scope="col"></th>
+                                  <th
+                                    scope="col"
+                                    class="sort"
+                                    data-sort="prodetail_id"
+                                  >
+                                    Mã biến thể
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    class="sort"
+                                    data-sort="price"
+                                  >
+                                    Giá
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    class="sort"
+                                    data-sort="color"
+                                  >
+                                    Màu
+                                  </th>
+                                  <th scope="col" class="sort" data-sort="size">
+                                    Kích thước
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    class="sort"
+                                    data-sort="weight"
+                                  >
+                                    Khối lượng
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody class="list">
+                                <tr
+                                  v-for="(modalDetail,
+                                  index) in showProductDetail"
+                                  :key="index + 99"
+                                >
+                                  <td class="text-center">
+                                    <input
+                                      type="checkbox"
+                                      :value="modalDetail"
+                                      v-model="detail"
+                                    />
+                                  </td>
+                                  <!-- mã sản phẩm -->
+                                  <td class="">
+                                    {{ modalDetail.prodetail_id }}
+                                  </td>
+                                  <td class="">{{ modalDetail.price }}</td>
+                                  <td class="">{{ modalDetail.color }}</td>
+                                  <td class="">{{ modalDetail.size }}</td>
+                                  <td class="">{{ modalDetail.weight }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pl-lg-4">
+                      <div class="form-group">
+                        <input
+                          type="button"
+                          class="btn btn-primary"
+                          value="Tạo khuyến mãi"
+                          @click="creatSaleOff"
+                        />
+                        <input
+                          type="button"
+                          class="btn btn-danger"
+                          value="Hủy"
+                        />
+                      </div>
+                    </div>
+                  </form>
                 </div>
-              </div>
-                <!-- Đã duyệt -->
-              <div class="card-footer py-4">
-                <nav aria-label="...">
-                  <ul class="pagination justify-content-end mb-0">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">
-                        <i class="fas fa-angle-left"></i>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                    </li>
-                    <li class="page-item active">
-                      <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        2
-                        <span class="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        <i class="fas fa-angle-right"></i>
-                        <span class="sr-only">Next</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+                <!-- Danh sách khuyến mãi -->
+                <div id="listSaleOff" class="container tab-pane fade">
+                  <br />
+                  <div class="card">
+                    <div class="table-responsive">
+                      <table class="table align-items-center table-hover">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Thao tác</th>
+                            <th scope="col" class="sort" data-sort="product_id">
+                              Mã SP
+                            </th>
+                            <th
+                              scope="col"
+                              class="sort"
+                              data-sort="product_name"
+                            >
+                              Sản phẩm
+                            </th>
+                            <th scope="col" class="sort" data-sort="cate_name">
+                              Danh mục con
+                            </th>
+                            <th scope="col" class="sort" data-sort="brand">
+                              Thương hiệu
+                            </th>
+                            <th scope="col" class="sort" data-sort="origin">
+                              Nhà cung cấp
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody
+                          class="list"
+                          v-for="(SaledOff, index) in SaledOff"
+                          v-bind:key="index+2324"
+                        >
+                          <tr>
+                            <td class="text-center">
+                              <div class="dropdown">
+                                <a
+                                  class="btn btn-sm btn-icon-only text-light"
+                                  href="#"
+                                  role="button"
+                                  data-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                >
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div
+                                  class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                                >
+                                  <a
+                                    class="dropdown-item"
+                                    href="javascript:void(0)"
+                                    data-toggle="modal"
+                                    data-target="#detailProduct"
+                                    @click="getListProductDetail(product)"
+                                    >Xem chi tiết</a
+                                  >
+                                </div>
+                              </div>
+                            </td>
+                            <!-- mã sản phẩm -->
+                            <td class="nameShop">{{ SaledOff.product_id }}</td>
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <!-- hình ảnh sản phẩm -->
+                                <a href="#" class="avatar rounded-circle mr-3">
+                                  <img
+                                    alt="Image placeholder"
+                                    v-bind:src="SaledOff.image"
+                                  />
+                                </a>
+                                <!-- tên sản phẩm -->
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{
+                                    SaledOff.product_name
+                                  }}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td class="nameShop">{{ SaledOff.cate_name }}</td>
+                            <td class="nameShop">{{ SaledOff.brand }}</td>
+                            <td class="nameShop">{{ SaledOff.origin }}</td>
+                          </tr>
+                        </tbody>
+                        <!-- The Modal -->
+                        <div class="modal fade" id="detailProduct">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Chi tiết sản phẩm</h4>
+                                <button
+                                  type="button"
+                                  class="close"
+                                  data-dismiss="modal"
+                                >
+                                  &times;
+                                </button>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                <div class="table-responsive">
+                                  <button
+                                    class="btn btn-primary btn-sm"
+                                    @click="addDetailProduct()"
+                                  >
+                                    NHẬP KHO
+                                  </button>
+                                  <br />
+                                  <br />
+                                  <table
+                                    class="table align-items-center table-flush"
+                                  >
+                                    <thead class="thead-light">
+                                      <tr>
+                                        <th scope="col" class="sort" data-sort>
+                                          Hình ảnh
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="detail_id"
+                                        >
+                                          Mã sản phẩm
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="price"
+                                        >
+                                          Giá
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="quantity"
+                                        >
+                                          SLượng kho
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          class="sort"
+                                          data-sort="color"
+                                        >
+                                          Màu
+                                        </th>
+                                        <th scope="col">Thao tác</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                      <tr
+                                        v-for="(modalDetail,
+                                        index) in showProductDetail"
+                                        :key="index + 99"
+                                      >
+                                        <!-- mã sản phẩm -->
+                                        <td>
+                                          <a
+                                            href="#"
+                                            class="avatar rounded-circle mr-3"
+                                          >
+                                            <img
+                                              alt="Image placeholder"
+                                              v-bind:src="modalDetail.image"
+                                            />
+                                          </a>
+                                        </td>
+                                        <td class="nameShop">
+                                          {{ modalDetail.prodetail_id }}
+                                        </td>
+                                        <td class="nameShop">
+                                          {{ modalDetail.price }}
+                                        </td>
+                                        <td class="nameShop">
+                                          {{ modalDetail.quantity }}
+                                        </td>
+                                        <td class="nameShop">
+                                          {{ modalDetail.color }}
+                                        </td>
+                                        <td class="text-right">
+                                          <div class="dropdown">
+                                            <a
+                                              class="btn btn-sm btn-icon-only text-light"
+                                              href="#"
+                                              role="button"
+                                              data-toggle="dropdown"
+                                              aria-haspopup="true"
+                                              aria-expanded="false"
+                                            >
+                                              <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div
+                                              class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                                            >
+                                              <a
+                                                class="dropdown-item"
+                                                href="javascript:void(0)"
+                                                >Xem chi tiết</a
+                                              >
+                                              <a
+                                                class="dropdown-item"
+                                                href="javascript:void(0)"
+                                                @click="
+                                                  deleteProducts(
+                                                    modalDetail.prodetail_id
+                                                  )
+                                                "
+                                                >Xóa</a
+                                              >
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </table>
+                    </div>
+                    <div class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li class="page-item">
+                            <a class="page-link" @click="previous()">
+                              <i class="fas fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" @click="next()">
+                              <i class="fas fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                  <br />
+                </div>
               </div>
             </div>
           </div>
@@ -229,30 +476,94 @@
 
 <script>
 import axios from "axios";
-import { server,  } from "../main";
-import Notiflix from "notiflix";
+import { server } from "../main";
+import swal from "sweetalert";
+
+// import Notiflix from "notiflix";
 
 export default {
   data() {
     return {
-      all: [],
-      unactive: [],
-      actived: [],
-      packaged: [],
-      shipping: [],
-      shipped: [],
-      cancelled: [],
-      returned: [],
-      newOrder: null,
+      product: {},
+      percent: null,
+      created_at: null,
+      updated_at: null,
+
+      unSaleOffoptions: [],
+      SaledOff:[],
+
+      detail: [],
+      product_id: null,
+      showProductDetail: [],
     };
   },
-  created() {
-
-
-    // EventBus.$on("new-order",(data)=>{
-    //   this.$alertify.success(`Bạn có đơn hàng mới từ ${data.username}`)
-    // })
-
+  methods: {
+    next(){
+      axios.post(this.next_page,{shop_id:this.shop_id})
+      .then((response) => {
+        var SaleOff = response.data.data;
+        this.current_page = response.data.current_page
+        this.next_page = response.data.next_page_url
+        this.previous_page = response.data.prev_page_url
+        this.SaledOff=SaleOff
+      });
+    },
+    previous(){
+     axios.post(this.previous_page,{shop_id:this.shop_id})
+      .then((response) => {
+        var SaleOff = response.data.data;
+        this.current_page = response.data.current_page
+        this.next_page = response.data.next_page_url
+        this.previous_page = response.data.prev_page_url
+        this.SaledOff=SaleOff
+      });
+      
+    },
+    creatSaleOff() {
+      let details = [];
+      this.detail.forEach((element) => {
+        let el = `"${element.prodetail_id}"`;
+        details.push(el);
+      });
+      let convertArrProdetail = `[${details.toString()}]`;
+      axios
+        .post(`${server}/discount`, {
+          prodetail_id: convertArrProdetail,
+          percent: parseInt(this.percent),
+          from_day: this.created_at,
+          to_day: this.updated_at,
+        })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.success) {
+            setTimeout(function () {
+              window.location.reload(1);
+            }, 1000);
+            swal({
+              title: "Thành công!",
+              icon: "success",
+              buttons: false,
+            });
+          }
+        })
+        .catch(() => {
+          swal({
+            title: "Thất bại!",
+            icon: "error",
+            button: "Kiểm tra lại",
+          });
+        });
+    },
+    getListProductDetail(product) {
+      this.product_id = product.product_id;
+      axios
+        .post(`${server}/detail-info`, { id: product.product_id })
+        .then((response) => {
+          this.showProductDetail = response.data;
+        });
+    },
+  },
+  mounted() {
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");
@@ -264,120 +575,36 @@ export default {
       return "";
     }
     this.shop_id = JSON.parse(getCookie("shop_id"));
-
-    this.allOrder();
-    this.unActive();
-    this.active();
-    this.donggoi();
-    this.shippingfc();
-    this.shippedfc();
-    this.cancelledfc();
-    this.returnedfc();
-  },
-  mounted(){
-    Notiflix.Notify.Init({fontSize:'15px',timeout:4000,messageMaxLength:200,position:'right-bottom'});
-  },
-  methods: {
-    checkOrder(id){
-      axios.post(`${server}/shop-check`, { id: id }).then((response) => {
-          if(response.data.success){
-            //meu tra ve thanh cong thi goi lại api lay san pham 
-            this.unActive();
-            Notiflix.Notify.Success(
-              `Đã duyệt đơn hàng`,
-            );
-          }
-          
-      });
-    },
-    allOrder() {
-      //Tất cả
-      axios
-        .post(`${server}/get-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var all = response.data;
-          this.all = all
-        });
-    },
-    unActive() {
-      //Chưa duyệt
-      axios
-        .post(`${server}/unactive-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var unactive = response.data;
-          this.unactive = unactive
-          
-        });
-    },
-    active() {
-      //Đã duyệt
-      axios
-        .post(`${server}/active-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var actived = response.data;
-          this.actived=actived
-        });
-    },
-    donggoi() {
-      //Đã đóng gói
-      axios
-        .post(`${server}/update-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var packaged = response.data;
-            this.packaged=packaged
-        });
-    },
-    shippingfc() {
-      //Đang giao
-      axios
-        .post(`${server}/confirm-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var shipping = response.data;
-          this.shipping=shipping
-
-        });
-    },
-    shippedfc() {
-      //Đã giao
-      axios
-        .post(`${server}/finish-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var shipped = response.data;
-            this.shipped=shipped;
-        });
-    },
-    cancelledfc() {
-      //Đã hủy
-      axios
-        .post(`${server}/cancel-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var cancelled = response.data;
-            this.cancelled=cancelled
-        });
-    },
-    returnedfc() {
-      //Trả hàng
-      axios
-        .post(`${server}/return-order-shop`, { shop_id: this.shop_id })
-        .then((response) => {
-          var returned = response.data;
-            this.returned=returned
-        });
-    },
-    //Thao tác với đơn hàng
-    //đã đóng gói
-    daDongGoi(id) {
-      axios.post(`${server}/shop-update`, { id:id })
-      .then((response)=>{
-          if(response.data.success){
-            
-            Notiflix.Notify.Success(
-            `Đã đóng gói`,
-            window.location.href=""
-          )
+    axios
+      .post(`${server}/unactive-discount`, { shop_id: this.shop_id })
+      .then((response) => {
+        var unSaleOff = response.data;
+        for (var item in unSaleOff) {
+          this.unSaleOffoptions.push(unSaleOff[item]);
         }
-        console.log(response.data);
-      })
+        // console.log(response.data);
+      });
+    axios
+      .post(`${server}/active-discount`, { shop_id: this.shop_id })
+      .then((response) => {
+        var SaledOff = response.data.data;
+        this.current_page = response.data.current_page
+        this.next_page = response.data.next_page_url
+        this.previous_page = response.data.prev_page_url
+        for (var item in SaledOff) {
+          this.SaledOff.push(SaledOff[item]);
+        }
+        console.log(SaledOff);
+      });
+  },
+  watch: {
+    product() {
+      axios
+        .post(`${server}/detail-info`, { id: this.product.product_id })
+        .then((response) => {
+          this.showProductDetail = response.data;
+          console.log(this.product);
+        });
     },
   },
 };

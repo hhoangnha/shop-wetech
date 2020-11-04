@@ -6,6 +6,33 @@
     expand
   >
     <ul class="navbar-nav align-items-center d-none d-md-flex ml-lg-auto">
+      <li class="nav-item dropdown">
+        <base-dropdown class="nav-link pr-0">
+          <div class="media align-items-center" slot="title">
+            <span class="avatar avatar-sm rounded-circle">
+              <img alt="Avatar" v-bind:src="user.avatar" />
+            </span>
+            <div class="media-body ml-2 d-none d-lg-block">
+              <span class="mb-0 text-sm font-weight-bold">{{ user.name }}</span>
+            </div>
+          </div>
+
+          <template>
+            <div class="dropdown-header noti-title">
+              <h6 class="text-overflow m-0">Shop {{ user.shop_name }}</h6>
+            </div>
+            <router-link to="/profile" class="dropdown-item">
+              <i class="ni ni-single-02"></i>
+              <span>Hồ sơ</span>
+            </router-link>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" @click="Logout()">
+              <i class="ni ni-curved-next"></i>
+              <span>Đăng xuất</span>
+            </div>
+          </template>
+        </base-dropdown>
+      </li>
       <base-dropdown class="nav-item" position="right" style="position: relative;">
         <a
           slot="title"
@@ -36,33 +63,6 @@
           </div>
         </a>
       </base-dropdown>
-      <li class="nav-item dropdown">
-        <base-dropdown class="nav-link pr-0">
-          <div class="media align-items-center" slot="title">
-            <span class="avatar avatar-sm rounded-circle">
-              <img alt="Avatar" v-bind:src="user.avatar" />
-            </span>
-            <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm font-weight-bold">{{ user.name }}</span>
-            </div>
-          </div>
-
-          <template>
-            <div class="dropdown-header noti-title">
-              <h6 class="text-overflow m-0">Shop {{ user.shop_name }}</h6>
-            </div>
-            <router-link to="/profile" class="dropdown-item">
-              <i class="ni ni-single-02"></i>
-              <span>Hồ sơ</span>
-            </router-link>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item" @click="Logout()">
-              <i class="ni ni-curved-next"></i>
-              <span>Đăng xuất</span>
-            </div>
-          </template>
-        </base-dropdown>
-      </li>
     </ul>
   </base-nav>
 </template>
@@ -93,6 +93,7 @@ export default {
     }
 
     this.user = JSON.parse(getCookie("user"));
+    document.title = "Shop "+this.user.shop_name
   },
   methods: {
     toggleSidebar() {

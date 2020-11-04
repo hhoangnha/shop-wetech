@@ -43,9 +43,6 @@
                     <th scope="col" class="sort" data-sort="product_name">
                       Sản phẩm
                     </th>
-                    <th scope="col" class="sort" data-sort="category">
-                      Danh mục chính
-                    </th>
                     <th scope="col" class="sort" data-sort="cate_name">
                       Danh mục con
                     </th>
@@ -108,7 +105,6 @@
                         </div>
                       </div>
                     </th>
-                    <td class="nameShop">{{ product.category }}</td>
                     <td class="nameShop">{{ product.cate_name }}</td>
                     <td class="nameShop">{{ product.brand }}</td>
                     <td class="nameShop">{{ product.origin }}</td>
@@ -218,6 +214,11 @@
                                       <a
                                         class="dropdown-item"
                                         href="javascript:void(0)"
+                                        @click="
+                                          ViewProductDetail(
+                                            modalDetail.prodetail_id
+                                          )
+                                        "
                                         >Xem chi tiết</a
                                       >
                                       <a
@@ -256,26 +257,14 @@
             <div class="card-footer py-4">
               <nav aria-label="...">
                 <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">
+                  <li class="page-item">
+                    <a class="page-link" @click="previous()">
                       <i class="fas fa-angle-left"></i>
                       <span class="sr-only">Previous</span>
                     </a>
                   </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                  </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">
-                      2
-                      <span class="sr-only">(current)</span>
-                    </a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">
+                    <a class="page-link" @click="next()">
                       <i class="fas fa-angle-right"></i>
                       <span class="sr-only">Next</span>
                     </a>
@@ -296,6 +285,7 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import { server, store } from "../main";
 import $ from "jquery";
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -304,9 +294,35 @@ export default {
       shop_id: "",
       t: null,
       category: null,
+      current_page: "",
+      next_page: "",
+      previous_page: "",
+
+      iamageData: [],
     };
   },
   methods: {
+    next() {
+      axios.post(this.next_page, { shop_id: this.shop_id }).then((response) => {
+        var productsNew = response.data.data;
+        this.current_page = response.data.current_page;
+        this.next_page = response.data.next_page_url;
+        this.previous_page = response.data.prev_page_url;
+        this.products = productsNew;
+      });
+    },
+    previous() {
+      axios
+        .post(this.previous_page, { shop_id: this.shop_id })
+        .then((response) => {
+          var productsNew = response.data.data;
+          this.current_page = response.data.current_page;
+          this.next_page = response.data.next_page_url;
+          this.previous_page = response.data.prev_page_url;
+          this.products = productsNew;
+          // console.log(response.data);
+        });
+    },
     getListProductDetail(product) {
       this.t = product.product_id;
       this.category = product.category;
@@ -369,6 +385,70 @@ export default {
           break;
       }
     },
+    //xem chi tiết sản phẩm
+    ViewProductDetail(id) {
+      axios.post(`${server}/image-detail-shop`, {
+        prodetail_id: id
+      }).then((re) => {
+        var iamagesData = re.data
+        for (var item in iamagesData) {
+          this.iamageData.push(iamagesData[item]);
+        }
+        store.state.iamageData = this.iamageData;
+      });
+      axios
+        .post(`${server}/prodetail-shop`, { prodetail_id: id })
+        .then((response) => {
+          var ViewProductDetails = response.data;
+          // console.log(ViewProductDetails[0]);
+          store.state.ViewProductDetail = ViewProductDetails[0];
+          $("#detailProduct").hide();
+          $("body").removeClass("modal-open");
+          switch (this.category) {
+            case "Sách":
+              this.$router.push({ path: "/view-product-detail-book" });
+              break;
+            case "Đồ chơi - Mẹ và bé":
+              this.$router.push({ path: "/view-product-detail-toy" });
+              break;
+            case "Thời trang - phụ kiện":
+              this.$router.push({ path: "/view-product-detail-fashion" });
+              break;
+            case "Làm đẹp - sức khỏe":
+              this.$router.push({ path: "/view-product-detail-fashion" });
+              break;
+            case "Hàng tiêu dùng - thực phẩm":
+              this.$router.push({
+                path: "/view-product-detail-house-hold-goods",
+              });
+              break;
+            case "Điện thoại - Máy tính bảng":
+              this.$router.push({
+                path: "/view-product-detail-information-technology",
+              });
+              break;
+            case "Laptop - IT":
+              this.$router.push({
+                path: "/view-product-detail-information-technology",
+              });
+              break;
+            case "Phụ kiện - Thiết bị số":
+              this.$router.push({
+                path: "/view-product-detail-information-technology",
+              });
+              break;
+            case "Điện gia dụng":
+              this.$router.push({ path: "/view-product-detail-electronic" });
+              break;
+            case "Điện tử - Điện lạnh":
+              this.$router.push({ path: "/view-product-detail-electronic" });
+              break;
+
+            default:
+              break;
+          }
+        });
+    },
   },
   mounted() {
     function getCookie(cname) {
@@ -385,10 +465,14 @@ export default {
     axios
       .post(`${server}/show-product-shop`, { shop_id: this.shop_id })
       .then((response) => {
-        var productsNew = response.data;
+        var productsNew = response.data.data;
+        this.current_page = response.data.current_page;
+        this.next_page = response.data.next_page_url;
+        this.previous_page = response.data.prev_page_url;
         for (var item in productsNew) {
           this.products.push(productsNew[item]);
         }
+        // console.log(response.data);
       });
   },
 };

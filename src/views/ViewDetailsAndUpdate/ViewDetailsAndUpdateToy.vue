@@ -22,7 +22,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h5>Nhập kho - Sách</h5>
+              <h5>Thêm sản phẩm - Đồ chơi & Mẹ và bé</h5>
             </div>
             <div class="card-body">
               <form>
@@ -37,8 +37,8 @@
                           type="text"
                           class="form-control"
                           placeholder="Tên sản phẩm"
-                          readonly
                           :value="product.product_name"
+                          readonly
                         />
                       </div>
                     </div>
@@ -50,32 +50,36 @@
                           type="text"
                           class="form-control"
                           placeholder="Thương hiệu"
-                          readonly
                           :value="product.brand"
+                          readonly
                         />
                       </div>
                     </div>
                   </div>
                   <div class="row">
+                    <!-- danh mục chính -->
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label">Danh mục chính</label>
+                        <label class="form-control-label" for
+                          >Danh mục chính</label
+                        >
                         <input
                           type="text"
                           class="form-control"
-                          placeholder
                           readonly
                           :value="product.category"
                         />
                       </div>
                     </div>
+                    <!-- danh mục con -->
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label">Danh mục con</label>
+                        <label class="form-control-label" for
+                          >Danh mục con</label
+                        >
                         <input
                           type="text"
                           class="form-control"
-                          placeholder
                           :value="product.cate_name"
                           readonly
                         />
@@ -167,8 +171,8 @@
                           class="form-control"
                           v-model="product.status_discount"
                         >
-                          <option value="1" >Khuyến mãi</option>
-                          <option value="0" >Không khuyến mãi</option>
+                          <option value="1" selected>Khuyến mãi</option>
+                          <option value="0" selected>Không khuyến mãi</option>
                         </select>
                       </div>
                     </div>
@@ -221,6 +225,35 @@
                     <!-- Kích thước sản phẩm -->
                     <div class="col-lg-6">
                       <div class="form-group">
+                        <label class="form-control-label">Màu sắc</label>
+                        <input
+                          class="form-control"
+                          type="color"
+                          placeholder="VD: Đỏ; Xanh; Trắng,..."
+                          v-model="product.color"
+                        />
+                      </div>
+                    </div>
+                    <!-- Cân nặng  -->
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label">Công suất</label>
+                        <div class="input-group mb-3">
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="VD: 1W; 0.5W;..."
+                            v-model="product.wattage"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <!-- Kích thước sản phẩm -->
+                    <div class="col-lg-6">
+                      <div class="form-group">
                         <label class="form-control-label">Chất liệu</label>
                         <input
                           class="form-control"
@@ -253,31 +286,37 @@
                 <h6 class="heading-small text-muted mb-4">Mô tả</h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
+                    <label class="form-control-label">Mô tả ngắn</label>
+                    <ckeditor
+                      v-model="product.introduction"
+                      :config="editorConfig"
+                      :editor-url="editorUrl"
+                    ></ckeditor>
+                  </div>
+                  <div class="form-group">
                     <label class="form-control-label">Thêm hình ảnh</label>
                     <div class="row text-center">
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
-                      <div class="col-2"><Ref /></div>
+                      <div class="col-2" v-for="(img,index) in imageData" :key="index">
+                        <RefUpdate :imageProps="img.image" />
+                      </div>
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Mô tả chi tiết</label>
+                    <ckeditor
+                      v-model="product.description"
+                      :config="editorConfig"
+                      :editor-url="editorUrl"
+                    ></ckeditor>
                   </div>
                   <div class="form-group">
                     <input
                       type="button"
                       class="btn btn-primary"
-                      name
-                      value="Thêm sản phẩm"
-                      @click="addProduct"
+                      value="Cập nhật sản phẩm"
+                      @click="updateProduct"
                     />
-
-                    <input
-                      type="button"
-                      class="btn btn-danger"
-                      name
-                      value="Hủy"
-                    />
+                    <input type="button" class="btn btn-danger" value="Hủy" />
                   </div>
                 </div>
               </form>
@@ -293,8 +332,8 @@
 import Axios from "axios";
 import $ from "jquery";
 import { store, EventBus, server } from "./../../main";
-import Ref from "./../AddProducts/Ref.vue";
-import swal from 'sweetalert';
+import RefUpdate from "./../ViewDetailsAndUpdate/RefUpdate.vue";
+import swal from "sweetalert";
 
 export default {
   data() {
@@ -302,7 +341,10 @@ export default {
       danhMucChinh: "",
       danhMucCon: "",
       imgArr: [],
+      imageData:[],
       product_id: null,
+      demo:"http://res.cloudinary.com/dtvapimtn/image/upload/c_fit,h_640,w_640/v1/products/pngtree-refund-money-icon-chargeback-contour-sign-quick-fund-cash-png-image_448788.png",
+      
       product: {
         quantity: 0,
         size: null,
@@ -366,11 +408,11 @@ export default {
     };
   },
   components: {
-    Ref,
+    RefUpdate,
   },
   methods: {
-    addProduct() {
-      Axios.post(`${server}/add-detail`, {
+    updateProduct() {
+      Axios.post(`${server}/update-product`, {
         quantity: this.product.quantity,
         size: this.product.size,
         color: this.product.color,
@@ -395,34 +437,35 @@ export default {
         status_discount: this.product.status_discount,
         status_product: "0",
         percent: this.product.percent,
-        from_day: this.product.from_day,
-        to_day: this.product.to_day,
+        from_day: null,
+        to_day: null,
 
         shop_id: this.product.shop_id,
 
         cate_id: this.product.cate_id,
         image: JSON.stringify(this.imgArr),
 
-        product_id: this.product_id,
+        prodetail_id: this.product.prodetail_id,
+        product_id: this.product.product_id,
       })
         .then((re) => {
           console.log(re.data);
           if (re.data.success) {
-            setTimeout(function(){
-            window.location.reload(1);
-          }, 1000);
-          swal({
-            title: "Thành công!",
-            icon: "success",
-            buttons: false
-          });
+            setTimeout(function () {
+              window.location.reload(1);
+            }, 1000);
+            swal({
+              title: "Thành công!",
+              icon: "success",
+              buttons: false,
+            });
           }
         })
         .catch(() => {
           swal({
             title: "Thất bại!",
             icon: "error",
-            button: "Kiểm tra lại"
+            button: "Kiểm tra lại",
           });
         });
     },
@@ -442,12 +485,14 @@ export default {
 
     this.product.shop_id = JSON.parse(getCookie("shop_id"));
 
-    this.product = store.state.productDetail;
+    this.product = store.state.ViewProductDetail;
     this.product_id = store.state.category_id;
 
     EventBus.$on("bus-upload-image", (data) => {
       this.imgArr.push(data);
     });
+
+    this.imageData = store.state.iamageData
   },
 };
 </script>

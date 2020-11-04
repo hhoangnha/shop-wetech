@@ -20,10 +20,6 @@
             <sidebar-item :link="{name: 'Tất cả', icon: 'ni ni-ungroup text-orange', path: '/order-list'}" />
             <sidebar-item :link="{name: 'Đơn mới', icon: 'ni ni-satisfied text-orange', path: '/new-order'}" />
 
-            <h5 class="container">Images Profile - Hình ảnh</h5>
-            <sidebar-item :link="{name: 'Ảnh bìa', icon: 'ni ni-album-2 text-blue', path: '/images-cover'}" />
-            <sidebar-item :link="{name: 'Ảnh đại diện', icon: 'ni ni-image text-blue', path: '/images-avatar'}" />
-
             <h5 class="container">Sale Off - Khuyến mãi</h5>
             <sidebar-item :link="{name: 'Khuyến mãi', icon: 'ni ni-box-2 text-info', path: '/sale-off'}" />
 

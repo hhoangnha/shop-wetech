@@ -11,35 +11,32 @@
                         </div>
                         <form role="form">
                             <base-input class="input-group-alternative mb-3"
-                                        placeholder="Email"
-                                        addon-left-icon="ni ni-email-83"
+                                        placeholder="Tên đăng nhập"
+                                        addon-left-icon="ni ni-single-02"
                                         v-model="user.username" >
                             </base-input>
 
                             <base-input class="input-group-alternative"
-                                        placeholder="Password"
+                                        placeholder="Mật khẩu"
                                         type="password"
                                         addon-left-icon="ni ni-lock-circle-open"
                                         v-model="user.password" @keyup.enter="Login">
                             </base-input>
 
-                            <base-checkbox class="custom-control-alternative">
-                                <span class="text-muted">Ghi nhớ đăng nhập</span>
-                            </base-checkbox>
                             <div class="text-center">
                                 <base-button type="primary" class="my-4" @click="Login()">Đăng nhập</base-button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <!-- <div class="row mt-3">
                     <div class="col-6">
                         <a href="#" class="text-light"><small>Quên mật khẩu?</small></a>
                     </div>
                     <div class="col-6 text-right">
                         <router-link to="/register" class="text-light"><small>Tạo một tài khoản khác</small></router-link>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 </template>
@@ -47,6 +44,7 @@
 // import { EventBus } from './../main'
 import { server } from './../main'
 import axios from 'axios'
+import swal from 'sweetalert'
 export default {
     data(){
       return{
@@ -62,7 +60,10 @@ export default {
       axios.post(`${server}/login-member`,this.user)
       .then(function (response) {
         if(response.data.error){
-          alert(response.data.error)
+          swal({
+            text: "Sai tên đăng nhập hoặc mật khẩu!",
+            dangerMode: "Nhập lại"
+          });
           return false
         }
           response.data.forEach(abc => {
@@ -72,7 +73,7 @@ export default {
             document.cookie = `user_id=${abc.user_id}; max-age=86400`
             document.cookie = `shop_id=${abc.shop_id}; max-age=86400`
             window.location.href = "http://localhost:8080/"
-            console.log(abc)
+            // console.log(abc)
           });
       })
       .catch(function (error) {
@@ -83,6 +84,9 @@ export default {
         // always executed
       });
     },
+  },
+  created(){
+    document.title = "Login"
   }
 };
 </script>
