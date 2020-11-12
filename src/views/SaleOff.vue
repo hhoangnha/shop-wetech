@@ -178,10 +178,27 @@
                                     />
                                   </td>
                                   <!-- mã sản phẩm -->
-                                  <td class="">
-                                    {{ modalDetail.prodetail_id }}
-                                  </td>
-                                  <td class="">{{ modalDetail.price }}</td>
+                                  <th scope="row">
+                                    <div class="media align-items-center">
+                                      <!-- hình ảnh sản phẩm -->
+                                      <a
+                                        href="javascript:void(0)"
+                                        class="avatar rounded-circle mr-3"
+                                      >
+                                        <img
+                                          alt=""
+                                          v-bind:src="modalDetail.image"
+                                        />
+                                      </a>
+                                      <!-- tên sản phẩm -->
+                                      <div class="media-body">
+                                        <span class="name mb-0 text-sm">{{
+                                          modalDetail.prodetail_id
+                                        }}</span>
+                                      </div>
+                                    </div>
+                                  </th>
+                                  <td class="">{{ modalDetail.price.format(0, 3, '.') }} &#8363;</td>
                                   <td class="">{{ modalDetail.color }}</td>
                                   <td class="">{{ modalDetail.size }}</td>
                                   <td class="">{{ modalDetail.weight }}</td>
@@ -242,7 +259,7 @@
                         <tbody
                           class="list"
                           v-for="(SaledOff, index) in SaledOff"
-                          v-bind:key="index+2324"
+                          v-bind:key="index + 2324"
                         >
                           <tr>
                             <td class="text-center">
@@ -383,7 +400,7 @@
                                           {{ modalDetail.prodetail_id }}
                                         </td>
                                         <td class="nameShop">
-                                          {{ modalDetail.price }}
+                                          {{ modalDetail.price.format(0, 3, '.') }} &#8363;
                                         </td>
                                         <td class="nameShop">
                                           {{ modalDetail.quantity }}
@@ -490,7 +507,7 @@ export default {
       updated_at: null,
 
       unSaleOffoptions: [],
-      SaledOff:[],
+      SaledOff: [],
 
       detail: [],
       product_id: null,
@@ -498,26 +515,25 @@ export default {
     };
   },
   methods: {
-    next(){
-      axios.post(this.next_page,{shop_id:this.shop_id})
-      .then((response) => {
+    next() {
+      axios.post(this.next_page, { shop_id: this.shop_id }).then((response) => {
         var SaleOff = response.data.data;
-        this.current_page = response.data.current_page
-        this.next_page = response.data.next_page_url
-        this.previous_page = response.data.prev_page_url
-        this.SaledOff=SaleOff
+        this.current_page = response.data.current_page;
+        this.next_page = response.data.next_page_url;
+        this.previous_page = response.data.prev_page_url;
+        this.SaledOff = SaleOff;
       });
     },
-    previous(){
-     axios.post(this.previous_page,{shop_id:this.shop_id})
-      .then((response) => {
-        var SaleOff = response.data.data;
-        this.current_page = response.data.current_page
-        this.next_page = response.data.next_page_url
-        this.previous_page = response.data.prev_page_url
-        this.SaledOff=SaleOff
-      });
-      
+    previous() {
+      axios
+        .post(this.previous_page, { shop_id: this.shop_id })
+        .then((response) => {
+          var SaleOff = response.data.data;
+          this.current_page = response.data.current_page;
+          this.next_page = response.data.next_page_url;
+          this.previous_page = response.data.prev_page_url;
+          this.SaledOff = SaleOff;
+        });
     },
     creatSaleOff() {
       let details = [];
@@ -564,6 +580,15 @@ export default {
     },
   },
   mounted() {
+    Number.prototype.format = function (n, x, s, c) {
+      var re = "\\d(?=(\\d{" + (x || 3) + "})+" + (n > 0 ? "\\D" : "$") + ")",
+        num = this.toFixed(Math.max(0, ~~n));
+
+      return (c ? num.replace(".", c) : num).replace(
+        new RegExp(re, "g"),
+        "$&" + (s || ",")
+      );
+    };
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");
@@ -588,9 +613,9 @@ export default {
       .post(`${server}/active-discount`, { shop_id: this.shop_id })
       .then((response) => {
         var SaledOff = response.data.data;
-        this.current_page = response.data.current_page
-        this.next_page = response.data.next_page_url
-        this.previous_page = response.data.prev_page_url
+        this.current_page = response.data.current_page;
+        this.next_page = response.data.next_page_url;
+        this.previous_page = response.data.prev_page_url;
         for (var item in SaledOff) {
           this.SaledOff.push(SaledOff[item]);
         }

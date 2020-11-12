@@ -22,7 +22,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h5>Thêm sản phẩm - Đồ chơi & Mẹ và bé</h5>
+              <h5>Xem chi tiết - Cập nhật</h5>
             </div>
             <div class="card-body">
               <form>
@@ -488,6 +488,16 @@ export default {
     this.product = store.state.ViewProductDetail;
     this.product_id = store.state.category_id;
 
+    //xử lý ngày
+    //từ ngày
+    let tuNgaytrave = this.product.created_at.replace(' ','T');
+    let tuNgayNhan = tuNgaytrave.slice(0,16);
+    this.product.from_day = tuNgayNhan;
+    //đến ngày
+    let denNgaytrave = this.product.updated_at.replace(' ','T');
+    let denNgayNhan = denNgaytrave.slice(0,16);
+    this.product.to_day = denNgayNhan;
+
     EventBus.$on("bus-upload-image", (data) => {
       this.imgArr.push(data);
     });
@@ -498,4 +508,8 @@ export default {
 </script>
 
 <style>
+.swal{
+  padding-bottom: 40px;
+}
 </style>
+

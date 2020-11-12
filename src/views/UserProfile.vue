@@ -28,6 +28,8 @@
                         :src="user.avatar"
                         class="rounded-circle image"
                         v-on:click="handleClickInputImg"
+                        data-toggle="tooltip" title="Nhấp vào ảnh để đổi ảnh đại diện!"
+                        data-placement="bottom"
                       />
                       <div class="overlay">
                         <div class="text">
@@ -269,6 +271,7 @@
 import axios from "axios";
 import { server, EventBus } from "./../main";
 import swal from "sweetalert";
+import $ from "jquery"
 
 export default {
   name: "user-profile",
@@ -345,6 +348,9 @@ export default {
     });
   },
 };
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
 </script>
 <style>
 </style>

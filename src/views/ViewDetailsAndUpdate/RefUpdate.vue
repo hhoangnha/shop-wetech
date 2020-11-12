@@ -4,14 +4,14 @@
       <img
         :src="addImage"
         class=""
-        v-on:click="handleClickInputImg"
+        v-on:click="handleClickInputImg(addImage)"
         width="100%"
       />
       <input
         ref="fileInputImg"
         type="file"
         style="display: none"
-        v-on:change="handleFileUpload()"
+        v-on:change="handleFileUpload"
       />
     </div>
   </div>
@@ -30,14 +30,17 @@ export default {
       file: null,
       addImage:
         "https://static.thenounproject.com/png/971744-200.png",
+      id: null,
     };
   },
   created(){
-    this.addImage = this.imageProps
+    this.addImage = this.imageProps.image;
+    this.id = this.imageProps.id;
   },
   methods: {
     handleClickInputImg() {
       this.$refs.fileInputImg.click();
+      console.log(this.id);
     },
     handleFileUpload() {
       this.file = this.$refs.fileInputImg.files[0];
@@ -51,12 +54,19 @@ export default {
         })
         .then((response) => {
           this.addImage = response.data;
-          console.log(response.data);
+          this.updateImageProduct(response.data);
           EventBus.$emit("bus-upload-image",response.data)
         })
         .catch((error)=>console.log(error))
         
     },
+    updateImageProduct(image){
+      axios.post(`${server}/update-product-image`, {
+        id : this.id, image: image
+      }).then((response)=>{
+        console.log(response.data);
+      })
+    }
   },
 };
 </script>

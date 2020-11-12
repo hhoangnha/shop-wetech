@@ -38,11 +38,6 @@
                 <div class="col-lg">
                   <h4 class="text-success">ĐƠN MỚI - ĐƠN CHỜ DUYỆT</h4>
                 </div>
-                <div
-                  class="col-lg d-flex justify-content-end"
-                  v-for="(unactive, index) in unactive"
-                  v-bind:key="index + 568"
-                ></div>
               </div>
               <br />
               <div class="table-responsive">
@@ -57,9 +52,6 @@
                       <th scope="col" class="sort" data-sort="nameUser">
                         Tên khách hàng
                       </th>
-                      <th scope="col" class="sort" data-sort="total">
-                        Tổng tiền
-                      </th>
                       <th scope="col" class="sort" data-sort="status">
                         Địa chỉ
                       </th>
@@ -68,12 +60,14 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody
-                    class="list"
-                    v-for="(unactive, index) in unactive"
-                    v-bind:key="index + 1"
-                  >
-                    <tr>
+                  <tbody class="list">
+                    <tr v-if="unactive.length == 0">
+                      <td>Không có dữ liệu</td>
+                    </tr>
+                    <tr
+                      v-for="(unactive, index) in unactive"
+                      v-bind:key="index + 1"
+                    >
                       <td class="text-center">
                         <div class="dropdown">
                           <a
@@ -94,7 +88,7 @@
                               href="javascript:void(0)"
                               data-toggle="modal"
                               data-target="#detailBill"
-                              @click="getOrderDetail(unactive.order_detail)"
+                              @click="getOrderDetail(unactive)"
                               >Chi tiết đơn hàng</a
                             >
                             <a
@@ -111,12 +105,7 @@
                       </td>
                       <td>{{ unactive.name }}</td>
                       <td>
-                        {{ unactive.total }}
-                      </td>
-                      <td>
-                        {{
-                            unactive.order_address
-                          }}
+                        {{ unactive.order_address }}
                       </td>
                       <td>
                         <div class="d-flex align-items-center">
@@ -148,11 +137,7 @@
                           <div class="container">
                             <div class="row">
                               <div class="col">
-                                <div
-                                  class="card"
-                                  v-for="(unactive, index) in unactive"
-                                  v-bind:key="index + 2"
-                                >
+                                <div class="card">
                                   <!-- Card header -->
                                   <div class="card-header border-0">
                                     <div class="media align-items-center">
@@ -161,16 +146,14 @@
                                         href="javascript:void(0)"
                                         class="avatar rounded-circle mr-3"
                                       >
-                                        <img alt="Avatar" src="" />
+                                        <img
+                                          alt="Avatar"
+                                          :src="infomation.avatar"
+                                        />
                                       </a>
-                                      <div
-                                        class="media-body"
-                                        v-for="(modalOrderDetail,
-                                        index) in modalOrderDetail"
-                                        :key="index + 100"
-                                      >
+                                      <div class="media-body">
                                         <span class="name mb-0 text-sm">
-                                          <strong>{{ unactive.name }}</strong>
+                                          <strong>{{ infomation.name }}</strong>
                                         </span>
                                         -
                                         <img
@@ -178,20 +161,28 @@
                                           alt=""
                                           width="15"
                                         />
-                                        {{ unactive.phone_number }}
+                                        {{ infomation.phone_number }}
                                       </div>
                                       <!-- địa chỉ người dùng -->
                                       <div class="float-right">
                                         <i class="ni ni-delivery-fast"></i>
                                         <span class="name mb-0 text-sm">
-                                          {{ unactive.order_address }}
+                                          <a
+                                            :href="
+                                              googlemap +
+                                              infomation.order_address
+                                            "
+                                            target="_blank"
+                                          >
+                                            {{ infomation.order_address }}</a
+                                          >
                                         </span>
                                         &emsp; | &emsp;
                                         <span
                                           class="badge badge-pill badge-primary"
                                           style="font-family: Times New Roman"
                                           ><strong>{{
-                                            unactive.status
+                                            infomation.status
                                           }}</strong></span
                                         >
                                       </div>
@@ -278,7 +269,16 @@
                                             </div>
                                           </th>
                                           <!-- giá sản phẩm -->
-                                          <td>{{ modalOrderDetail.price }}</td>
+                                          <td>
+                                            {{
+                                              modalOrderDetail.price.format(
+                                                0,
+                                                3,
+                                                "."
+                                              )
+                                            }}
+                                            &#8363;
+                                          </td>
                                           <td>
                                             {{ modalOrderDetail.cart_quantity }}
                                           </td>
@@ -286,9 +286,12 @@
                                           <td>{{ modalOrderDetail.size }}</td>
                                           <td>
                                             {{
-                                              modalOrderDetail.price *
-                                              modalOrderDetail.cart_quantity
+                                              (
+                                                modalOrderDetail.price *
+                                                modalOrderDetail.cart_quantity
+                                              ).format(0, 3, ".")
                                             }}
+                                            &#8363;
                                           </td>
                                         </tr>
                                       </tbody>
@@ -326,7 +329,7 @@
                                             class="sort"
                                             data-sort=""
                                           >
-                                            xxx.xxx
+                                            {{ subtotal }} &#8363;
                                           </th>
                                           <th
                                             scope="col"
@@ -346,7 +349,7 @@
                         <div class="modal-footer">
                           <button
                             type="button"
-                            class="btn btn-secondary"
+                            class="btn btn-primary"
                             data-dismiss="modal"
                           >
                             Đóng
@@ -360,22 +363,13 @@
             </div>
           </div>
           <div class="card-footer py-4">
-            <nav aria-label="...">
-              <ul class="pagination justify-content-end mb-0">
-                <li class="page-item">
-                  <a class="page-link" @click="previous()">
-                    <i class="fas fa-angle-left"></i>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" @click="next()">
-                    <i class="fas fa-angle-right"></i>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <v-pagination
+              v-model="current_page"
+              :page-count="last_page"
+              :classes="bootstrapPaginationClasses"
+              :labels="paginationAnchorTexts"
+            >
+            </v-pagination>
           </div>
         </div>
       </div>
@@ -387,15 +381,49 @@
 import axios from "axios";
 import { server } from "../main";
 import Notiflix from "notiflix";
+import vPagination from "vue-plain-pagination";
 
 export default {
   data() {
     return {
+      googlemap: "http://maps.google.com/?q=",
       unactive: [],
       modalOrderDetail: [],
+      infomation: {},
+      subtotal: null,
+
+      current_page: "",
+      last_page: "",
+      next_page: "",
+      previous_page: "",
+      bootstrapPaginationClasses: {
+        ul: "pagination",
+        li: "page-item",
+        liActive: "active",
+        liDisable: "disabled",
+        button: "page-link",
+      },
+      paginationAnchorTexts: {
+        first: "First",
+        prev: '<i class="fas fa-angle-left"></i>',
+        next: '<i class="fas fa-angle-right"></i>',
+        last: "Last",
+      },
     };
   },
+  components: {
+    vPagination,
+  },
   mounted() {
+    Number.prototype.format = function (n, x, s, c) {
+      var re = "\\d(?=(\\d{" + (x || 3) + "})+" + (n > 0 ? "\\D" : "$") + ")",
+        num = this.toFixed(Math.max(0, ~~n));
+
+      return (c ? num.replace(".", c) : num).replace(
+        new RegExp(re, "g"),
+        "$&" + (s || ",")
+      );
+    };
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(";");
@@ -418,30 +446,15 @@ export default {
     });
   },
   methods: {
-    next() {
-      axios.post(this.next_page, { shop_id: this.shop_id }).then((response) => {
-        var unactiveOrder = response.data.data;
-        this.current_page = response.data.current_page;
-        this.next_page = response.data.next_page_url;
-        this.previous_page = response.data.prev_page_url;
-        this.unactive = unactiveOrder;
-      });
-    },
-    previous() {
-      axios
-        .post(this.previous_page, { shop_id: this.shop_id })
-        .then((response) => {
-          var unactiveOrder = response.data.data;
-          this.current_page = response.data.current_page;
-          this.next_page = response.data.next_page_url;
-          this.previous_page = response.data.prev_page_url;
-          this.unactive = unactiveOrder;
-          // console.log(response.data);
-        });
-    },
     //Modal detail orders
-    getOrderDetail(order_detail) {
-      this.modalOrderDetail = JSON.parse(order_detail);
+    getOrderDetail(unactive) {
+      this.infomation = unactive;
+      this.modalOrderDetail = JSON.parse(unactive.order_detail);
+      let tongTien = 0;
+      JSON.parse(unactive.order_detail).forEach((element) => {
+        tongTien += element.price * element.cart_quantity;
+      });
+      this.subtotal = tongTien;
     },
     //Xuất đơn chờ duyệt
     getUnactive() {
@@ -454,8 +467,8 @@ export default {
           this.previous_page = response.data.prev_page_url;
           for (var item in unactive) {
             this.unactive.push(unactive[item]);
-            // console.log(response.data);
           }
+          console.log(response.data);
         });
     },
     //Duyệt sản phẩm theo id
@@ -470,7 +483,27 @@ export default {
         // console.log(response.data);
       });
     },
-    // Duyệt tất cả sản phẩm
+    //pagination
+    PageAct() {
+      let this2 = this;
+      axios
+        .post(`${server}` + "/unactive-order-shop?page=" + this2.current_page, {shop_id: this.shop_id})
+        .then(function (response) {
+          this2.unactive = response.data.data;
+          this2.current_page = response.data.current_page;
+          this2.last_page = response.data.last_page;
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
+    },
+  },
+  watch: {
+    current_page(value) {
+      console.log(value);
+      this.PageAct();
+    },
   },
 };
 </script>

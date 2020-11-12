@@ -11,6 +11,7 @@ import OrderList from './views/OrderList.vue'
 import OrderNew from './views/OrderNew.vue'
 import ViewProductDetail from './views/ViewProductDetail.vue'
 import SaleOff from './views/SaleOff.vue'
+import Advertisement from './views/Advertisements.vue'
 
 //add detail product
 import DetailsAddBook from './views/AddDetails/DetailsAddBook.vue'
@@ -95,6 +96,11 @@ export default new Router({
           path: '/sale-off',
           name: 'Khuyến mãi',
           component: SaleOff
+        },
+        {
+          path: '/advertisement',
+          name: 'Quảng cáo',
+          component: Advertisement
         },
         //thêm biến thể
         {

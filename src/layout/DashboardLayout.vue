@@ -23,6 +23,9 @@
             <h5 class="container">Sale Off - Khuyến mãi</h5>
             <sidebar-item :link="{name: 'Khuyến mãi', icon: 'ni ni-box-2 text-info', path: '/sale-off'}" />
 
+            <h5 class="container">Advertisement - Quảng cáo</h5>
+            <sidebar-item :link="{name: 'Quảng cáo', icon: 'ni ni-box-2 text-info', path: '/advertisement'}" />
+
         </template>
 
     </side-bar>
